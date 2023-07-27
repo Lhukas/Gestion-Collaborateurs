@@ -1,0 +1,22 @@
+<div class="inline-b">
+<!--[ngClass] permet de mettre des classe dynamiquement selon une condition-->
+    <div [ngClass]="{ 'card-employe' : monBouton.textContent == 'Gerer'} ">
+            <div class="img-card-employe"><img src="../../assets/images/logo-DLINFO.png" alt=""></div>
+            <!--ng style permet de mettre du style de manière dynamique-->
+            <div class="name-card-employe" [ngStyle]="{}"><p>{{employeElementArray.prenom | titlecase }}<br>{{employeElementArray.nom | uppercase}}</p>   </div>
+            <div class="button-card"><button #monBouton (click)="test(monBouton)">Gerer</button></div>
+            <!--ngif permet d'affiché quelque choses selon une condition dans tous les éléments html, on mets les condition qu'on veux  -->
+            <p *ngIf="employeElementArray.location"> location = {{employeElementArray.location}}</p>
+            <br>
+            <!--pipe pour formater l'affichage de la date-->
+            <p *ngIf="employeElementArray.today"> date = {{employeElementArray.today | date : 'dd MMMM yyyy, à HH:mm'}}</p>
+            <!--pipe pour formater l'affichage le nombre-->
+            <br>
+            <p> nombre = {{employeElementArray.nombreConge | number : '1.0-3'}}</p>
+            <br>
+             <!--pipe pour formater l'affichage le nombre pour un pourcentage-->
+            <p> pourcentage = {{0.336 | percent : '1.0-1'}}</p>
+             <!--pipe pour formater l'affichage le nombre  avec une devise -->
+             <p> pourcentage = {{150 | currency : 'EUR' : 'code' }}</p>
+        </div>
+        </div>

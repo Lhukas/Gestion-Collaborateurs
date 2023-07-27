@@ -1,24 +1,24 @@
 import { asLiteral } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit,Input } from '@angular/core';
-import { ListEmploye } from '../models/list-employe-model';
+import { Employe } from '../models/employe-modele';
 
 @Component({
   selector: 'app-list-employe',
   templateUrl: './list-employe.component.html',
   styleUrls: ['./list-employe.component.scss']
 })
-export class ListEmployeComponent {
-
-@Input() listEmploye!: ListEmploye;
+export class ListEmployeComponent implements OnInit {
 
 
-  test(bouton: HTMLButtonElement){
-    console.log("Le bouton a été cliqué !");
-    console.log("Texte du bouton : " + bouton.textContent);
-    console.log("Autres propriétés : ", bouton);
-    console.log(this.listEmploye)
 
-    bouton.textContent = "test"
-    //bouton.disabled = true
+ListEmploye!: Employe[];
+
+  ngOnInit() {
+
+    this.ListEmploye = [
+      new Employe("lhukas","nelhomme",10,new Date(),"test"),
+      new Employe("lhukas2","nelhomme2",10.123456789,new Date(),"paris" )
+    ]
   }
+  
 }
