@@ -2,6 +2,7 @@
 
 export class Employe {
     constructor(
+        public id: number,
         public nom : string,
         public prenom : string,
         public nombreConge : number,
@@ -9,4 +10,5 @@ export class Employe {
         public location?: string
         
         ){}
+
 }

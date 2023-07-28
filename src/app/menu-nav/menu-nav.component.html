@@ -9,14 +9,14 @@
  </div>
  <div class="nav-bar2">
 
-    <p>Page actuelle</p>
+    <p>{{NamePage}}</p>
 
     <ul class="nav">
 
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">Vue d'ensemble</a></li>
-        <li><a href="#">Collaborateur</a></li>
-        <li><a href="#">Déconnexion</a></li>
+        <li><a routerLink="/Acceuil" (click)="changePath('Dashboard')" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Accueil</a></li>
+        <li><a routerLink="#" (click)="changePath('Vue d\'ensemble')" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Vue d'ensemble</a></li>
+        <li><a routerLink="#" (click)="changePath('Collborateurs')" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Collaborateur</a></li>
+        
     </ul>
 
 

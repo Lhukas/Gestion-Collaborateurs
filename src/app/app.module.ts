@@ -10,17 +10,23 @@ import { MenuNavComponent } from './menu-nav/menu-nav.component';
 import { ListEmployeComponent } from './list-employe/list-employe.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeComponent } from './employe/employe.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CalendrierEmployeComponent } from './calendrier-employe/calendrier-employe.component';
+import { CollaborateursComponent } from './collaborateurs/collaborateurs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuNavComponent,
     ListEmployeComponent,
-    EmployeComponent
+    EmployeComponent,
+    CalendrierEmployeComponent,
+    CollaborateursComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   //FR
   providers: [{ provide : LOCALE_ID, useValue : 'fr-FR'}],
