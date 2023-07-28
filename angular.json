@@ -50,9 +50,10 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [ "./node_modules/hammerjs/hammer.min.js"]
           },
           "configurations": {
             "production": {
@@ -118,9 +119,10 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [ "./node_modules/hammerjs/hammer.min.js"]
           }
         }
       }

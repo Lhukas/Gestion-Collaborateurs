@@ -1,9 +1,28 @@
 <div class="container-employe">
 
-    <h1>{{prenom}}</h1>
-
-
-
-
+    <div class="calendrier">
+        <div class="header">
+          <button (click)="changeMonth(-1)">Mois précédent</button>
+          <h2>{{ getMonthName(currentMonth) }} {{ currentYear }}</h2>
+          <button (click)="changeMonth(1)">Mois suivant</button>
+        </div>
+      
+        <table>
+          <thead>
+            <tr>
+              <th *ngFor="let day of ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']">{{ day }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let week of weeks">
+                <td *ngFor="let day of week" (click)="onDateClick(day)"
+                [attr.id]="(day < 10 ? '0' + day : day) + '-' + (currentMonth < 9 ? '0' + (currentMonth + 1) : (currentMonth + 1)) + '-' + currentYear">
+                {{ day < 10 ? '0' + day : day }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
 
 </div>
