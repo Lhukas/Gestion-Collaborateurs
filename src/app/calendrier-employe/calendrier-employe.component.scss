@@ -10,20 +10,108 @@
    margin-top: -50px;
     padding: 30px;
 }
-
-.calendar-wrapper {
-  max-width: 700px;
-  min-width: 200px;
-  margin: 8px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.26),
-  0 1px 1px 0 rgba(0, 0, 0, 0.12),
-  0 2px 1px -1px rgba(0, 0, 0, 0.08);
+/* Styles for the calendar container */
+.calendar {
+  width: 800px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
 
-.igx-calendar {
-  border-radius: 0;
+/* Styles for the calendar header */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.igx-button--raised {
-  border-radius: 0;
+/* Styles for the previous and next month buttons */
+.calendar-header button {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  transition: opacity 0.2s;
 }
+
+/* Hover styles for previous and next month buttons */
+.calendar-header button:hover {
+  opacity: 0.8;
+}
+
+/* Styles for the month name */
+.calendar-header span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Styles for the weekdays */
+.weekdays {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styles for each weekday cell */
+.weekday {
+  flex: 1;
+  text-align: center;
+}
+
+/* Styles for the days */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 20px;
+}
+
+/* Styles for each day cell */
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  user-select: none;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+/* Styles for the selected day cell */
+.day.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Styles for the hovered day cell */
+.day:hover:not(.selected) {
+  background-color: #f1f1f1;
+}
+
+/* Optional: Styles for today's date cell */
+.day.today {
+  background-color: #f1f1f1;
+}
+
+/* Styles for the calendar footer */
+.calendar-footer {
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+

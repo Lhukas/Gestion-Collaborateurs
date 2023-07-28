@@ -28,6 +28,7 @@
     "jszip": "^3.6.0",
     "minireset.css": "~0.0.4",
     "ngx-bootstrap": "^7.1.2",
+    "npm-check-updates": "^16.10.17",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "web-animations-js": "^2.3.2",

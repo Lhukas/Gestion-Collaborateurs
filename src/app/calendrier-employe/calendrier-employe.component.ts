@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Employe } from '../models/employe-modele';
 import { EmployeService } from '../services/employe.service';
+import { BrowserModule } from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-calendrier-employe',
@@ -10,82 +13,94 @@ import { EmployeService } from '../services/employe.service';
 })
 export class CalendrierEmployeComponent implements OnInit {
 
+  currentMonth!: string;
+  weekdays!: string[];
+  dates!: Date[];
+  selectedDate!: Date;
   employe!: Employe
   prenom !: string
+ 
 
-   currentMonth: number;
-   currentYear: number;
-   daysInMonth!: number[];
-   weeks!: number[][];
-
-
- viewDate : Date = new Date()
   constructor(private route: ActivatedRoute,
-      private employeService :EmployeService
-    ) {
-      const currentDate = new Date();
-      this.currentMonth = currentDate.getMonth();
-      this.currentYear = currentDate.getFullYear();
-      this.generateCalendar();
-     }
+    private employeService :EmployeService
+  ) {
+    
+   }
 
   ngOnInit(): void {
+    this.weekdays = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+    this.selectedDate = new Date();
+    this.generateCalendar(this.selectedDate);
+
     const employe_id = +this.route.snapshot.params['id'];
     this.employe = this.employeService.getEmployeByID(employe_id)
-
-
     this.prenom = this.employe.prenom
   }
 
-  // Méthode pour générer le calendrier
-  generateCalendar(): void {
-    this.daysInMonth = [];
-    this.weeks = [];
+  generateCalendar(date: Date): void {
+    this.currentMonth = date.toLocaleString('default', { month: 'long', year: 'numeric' });
 
-    const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
-    const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const daysInMonth = lastDayOfMonth.getDate();
 
-    let dayOfWeek = firstDayOfMonth.getDay();
-    let week: number[] = [];
+    const firstDayOfWeek = firstDayOfMonth.getDay();
 
+    this.dates = [];
+
+    // Add previous month's days to fill the first week
+    for (let i = firstDayOfWeek; i > 0; i--) {
+      const prevDate = new Date(firstDayOfMonth);
+      prevDate.setDate(prevDate.getDate() - i);
+      this.dates.push(prevDate);
+    }
+
+    // Add current month's days
     for (let i = 1; i <= daysInMonth; i++) {
-      week.push(i);
-      dayOfWeek++;
-
-      if (dayOfWeek === 7 || i === daysInMonth) {
-        this.weeks.push(week);
-        week = [];
-        dayOfWeek = 0;
-      }
+      const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
+      this.dates.push(currentDate);
     }
   }
 
-  // Méthode pour changer le mois
-  changeMonth(monthOffset: number): void {
-    this.currentMonth += monthOffset;
-
-    if (this.currentMonth < 0) {
-      this.currentYear--;
-      this.currentMonth = 11;
-    } else if (this.currentMonth > 11) {
-      this.currentYear++;
-      this.currentMonth = 0;
-    }
-
-    this.generateCalendar();
+  prevMonth(): void {
+    this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
+    this.generateCalendar(this.selectedDate);
   }
 
-  getMonthName(monthIndex: number): string {
-    const monthNames = [
-      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-    ];
-    return monthNames[monthIndex];
+  nextMonth(): void {
+    this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
+    this.generateCalendar(this.selectedDate);
   }
 
-  onDateClick(date: number): void {
-    console.log(date);
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return date.toDateString() === today.toDateString();
   }
 
+  isSelected(date: Date): boolean {
+    return date.toDateString() === this.selectedDate.toDateString();
+  }
+
+  selectDate(date: Date): void {
+    this.selectedDate = date;
+  }
+  isSameDate(date1: Date, date2: Date): boolean {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  }
+
+  getFormattedDateId(date: Date): string {
+    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate().toString();
+    const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1).toString();
+    const year = date.getFullYear().toString();
+    return day + month  + year;
+  }
 }
+
+
+
+
+
