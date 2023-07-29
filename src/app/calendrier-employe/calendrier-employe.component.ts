@@ -19,13 +19,13 @@ export class CalendrierEmployeComponent implements OnInit {
   selectedDate!: Date;
   employe!: Employe
   prenom !: string
+  nom !: string
  
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private employeService :EmployeService
-  ) {
-    
-   }
+  ) {}
 
   ngOnInit(): void {
     this.weekdays = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
@@ -35,6 +35,14 @@ export class CalendrierEmployeComponent implements OnInit {
     const employe_id = +this.route.snapshot.params['id'];
     this.employe = this.employeService.getEmployeByID(employe_id)
     this.prenom = this.employe.prenom
+    this.nom = this.employe.nom
+
+    
+  }
+
+  ngAfterViewInit() : void {
+    console.log(document.getElementById("26062023"))
+    document.getElementById("26062023")!.style.backgroundColor = "red"
   }
 
   generateCalendar(date: Date): void {

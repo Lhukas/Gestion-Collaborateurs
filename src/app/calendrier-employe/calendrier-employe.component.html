@@ -1,5 +1,5 @@
 <div class="container-employe">
-  <h1>Calendrider </h1>
+  <h3>Calendrider de : <br> {{prenom | uppercase}} {{nom}}</h3>
 
 
 
@@ -19,11 +19,47 @@
         *ngFor="let date of dates"
         (click)="selectDate(date)"
         [attr.id]="getFormattedDateId(date)">
-        {{ date.getDate() }}
+        <p>{{ date.getDate() }}</p>
+        
       </div>
       </div>
     </div>
   </div>
+<div class="code-couleur">
+
+<h2>Code couleur </h2>
+
+<div class="inline-b">
+<div class="code-couleur-details">
+  <div><p class="color-code"></p></div>
+  <div class="color-signification"><p>Présent</p></div>
+</div></div>
+
+<div class="inline-b">
+  <div class="code-couleur-details">
+    <div><p class="color-code"></p></div>
+    <div class="color-signification"><p>Présent</p></div>
+  </div></div>
+
+  <div class="inline-b">
+    <div class="code-couleur-details">
+      <div><p class="color-code"></p></div>
+      <div class="color-signification"><p>Présent</p></div>
+    </div></div>
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code"></p></div>
+        <div class="color-signification"><p>Présent</p></div>
+      </div></div>
+
+
+</div>
+
+
+
+  <button>Supprimé donnée jours</button>
+  <button>Traité</button>
   
       
 </div>
