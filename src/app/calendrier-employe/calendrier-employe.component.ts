@@ -20,6 +20,8 @@ export class CalendrierEmployeComponent implements OnInit {
   employe!: Employe
   prenom !: string
   nom !: string
+
+datetraitement : string[] = []
  
 
   constructor(
@@ -41,8 +43,8 @@ export class CalendrierEmployeComponent implements OnInit {
   }
 
   ngAfterViewInit() : void {
-    console.log(document.getElementById("26062023"))
-    document.getElementById("26062023")!.style.backgroundColor = "red"
+    /* console.log(document.getElementById("26062023"))
+    document.getElementById("26062023")!.style.backgroundColor = "red" */
   }
 
   generateCalendar(date: Date): void {
@@ -91,6 +93,30 @@ export class CalendrierEmployeComponent implements OnInit {
 
   selectDate(date: Date): void {
     this.selectedDate = date;
+
+    const dateSelected  = this.getFormattedDateId(this.selectedDate)
+
+if (this.datetraitement.length == 0) {
+
+  this.datetraitement.push(dateSelected);
+  console.log("Élément ajouté !");
+
+} else {
+  
+  const index = this.datetraitement.indexOf(dateSelected);
+
+  if (index !== -1) {
+    // L'élément est présent dans le tableau, on le supprime
+    this.datetraitement.splice(index, 1);
+    console.log("Élément supprimé !");
+  } else {
+    // L'élément n'est pas présent dans le tableau, on l'ajoute
+    this.datetraitement.push(dateSelected);
+    console.log("Élément ajouté !");
+  }
+}
+
+
   }
   isSameDate(date1: Date, date2: Date): boolean {
     return (
@@ -105,6 +131,13 @@ export class CalendrierEmployeComponent implements OnInit {
     const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1).toString();
     const year = date.getFullYear().toString();
     return day + month  + year;
+  }
+
+
+
+
+  GestionJours() : void{
+
   }
 }
 

@@ -9,7 +9,7 @@ const routes : Routes = [
 { path: '', component : ListEmployeComponent },
 { path: 'Acceuil', component : ListEmployeComponent },
 { path: 'Calendrier/:id', component : CalendrierEmployeComponent },
-{ path: 'Collaborateur', component : CollaborateursComponent }
+{ path: 'Collaborateur', component : CollaborateursComponent },
 ];
 
 
