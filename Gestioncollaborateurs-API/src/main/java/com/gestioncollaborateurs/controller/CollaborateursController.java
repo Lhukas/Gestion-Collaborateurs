@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +32,9 @@ public class CollaborateursController {
 	}
 	
 	
-	@GetMapping("/Collaborateur2")
-	public Collaborateurs getCollaborateur(){
-		return cs.getCollaborateur((long) 1);
+	@GetMapping("/Collaborateur/{id}")
+	public Collaborateurs getCollaborateur(@PathVariable Long id){
+		return cs.getCollaborateur(id);
 	}
 	
 	
