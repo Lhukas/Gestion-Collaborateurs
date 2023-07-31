@@ -19,9 +19,9 @@ public class CollaborateursService {
 	private CollaborateurRepository cr;
 	
 	
-	public String getCollaborateur( final Long id ){
+	public Collaborateurs getCollaborateur( final Long id ){
 		Collaborateurs nCollaborateurs = cr.findById(id).get();
-		return nCollaborateurs.toString();
+		return nCollaborateurs;
 		
 	}
 	

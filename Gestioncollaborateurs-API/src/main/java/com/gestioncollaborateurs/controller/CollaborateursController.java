@@ -32,7 +32,7 @@ public class CollaborateursController {
 	
 	
 	@GetMapping("/Collaborateur2")
-	public String getCollaborateur(){
+	public Collaborateurs getCollaborateur(){
 		return cs.getCollaborateur((long) 1);
 	}
 	

@@ -29,6 +29,79 @@ public class Collaborateurs {
 	
 	private String ticket_resto;
 
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+
+
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+
+
+
+	public String getNom() {
+		return nom;
+	}
+
+
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+
+
+	public String getMail() {
+		return mail;
+	}
+
+
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+
+
+
+	public String getTicket_resto() {
+		return ticket_resto;
+	}
+
+
+
+
+	public void setTicket_resto(String ticket_resto) {
+		this.ticket_resto = ticket_resto;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Collaborateurs [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + ", ticket_resto="
