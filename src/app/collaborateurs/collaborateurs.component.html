@@ -1,1 +1,46 @@
-<p>collaborateurs works!</p>
+<div class="container-employe">
+
+
+  <h2>Liste des collaborateurs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let collaborateurItem of collaborateurs; let i = index">
+        <td>{{ collaborateurItem.nom | uppercase}}</td>
+        <td>{{ collaborateurItem.prenom | titlecase}}</td>
+        <td>
+          <button (click)="supprimerCollaborateur(collaborateurItem.collaborateur_id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+  
+
+  
+<br>
+<h2>Ajouter un collaborateur</h2>
+<br>
+  <form #addForm="ngForm" (ngSubmit)="onAddCollaborateur()">
+    <div>
+      <label for="nom">Nom:</label>
+      <input type="text" id="nom" name="nom" [(ngModel)]="newCollaborateur.nom" >
+    </div>
+    <div>
+      <label for="prenom">Prénom:</label>
+      <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" >
+    </div>
+    <div>
+      <button [disabled]="addForm.invalid" type="submit">Enregistrer</button>
+    </div>
+  </form>
+  
+
+
+    </div>

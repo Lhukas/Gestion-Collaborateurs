@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Employe } from '../models/employe-modele';
 import { EmployeService } from '../services/employe.service';
 import { BrowserModule } from '@angular/platform-browser';
+import { CollaborateursService } from '../services/collaborateurs.service';
+import { Collaborateur } from '../models/collaborateur-modele';
 
 
 
@@ -17,16 +19,20 @@ export class CalendrierEmployeComponent implements OnInit {
   weekdays!: string[];
   dates!: Date[];
   selectedDate!: Date;
-  employe!: Employe
   prenom !: string
   nom !: string
+
+
+
+  collaborateur!: Collaborateur
 
 datetraitement : string[] = []
  
 
   constructor(
     private route: ActivatedRoute,
-    private employeService :EmployeService
+    private employeService :EmployeService,
+    private cs : CollaborateursService
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +41,9 @@ datetraitement : string[] = []
     this.generateCalendar(this.selectedDate);
 
     const employe_id = +this.route.snapshot.params['id'];
-    this.employe = this.employeService.getEmployeByID(employe_id)
-    this.prenom = this.employe.prenom
-    this.nom = this.employe.nom
+    //this.collaborateur = this.cs.getCollaborateur(employe_id)
+    console.log(this.cs.getCollaborateur(employe_id))
+    //console.log(this.collaborateur)
 
     
   }

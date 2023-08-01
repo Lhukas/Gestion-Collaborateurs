@@ -1,5 +1,7 @@
 package com.gestioncollaborateurs.service;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,9 @@ public class CollaborateursService {
 	
 	
 	public Collaborateurs getCollaborateur( final Long id ){
-		Collaborateurs nCollaborateurs = cr.findById(id).get();
-		return nCollaborateurs;
+		return cr.findById(id).get();
+				
+				/*.orElseThrow(()->new UserNotFoundException("ce collaborateur n'as pas été trouvé"));*/
 		
 	}
 	
@@ -31,7 +34,6 @@ public class CollaborateursService {
 	}
 	
 	public void deleteCollaborateurs( final Long id) {
-		
 		cr.deleteById(id);
 	}
 
@@ -39,6 +41,12 @@ public class CollaborateursService {
 	public Collaborateurs saveCollaborateurs( Collaborateurs collaborateur) {
 		Collaborateurs collaborateurSave = cr.save(collaborateur);
 		return collaborateurSave;
+	}
+
+
+	public void updateCollaborateurs(Collaborateurs collaborateurs) {
+		cr.save(collaborateurs);
+		
 	}
 
 }

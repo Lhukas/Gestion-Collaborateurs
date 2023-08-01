@@ -12,6 +12,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeComponent } from './employe/employe.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CalendrierEmployeComponent } from './calendrier-employe/calendrier-employe.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CollaborateursComponent } from './collaborateurs/collaborateurs.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -21,14 +24,18 @@ import { CalendrierEmployeComponent } from './calendrier-employe/calendrier-empl
     MenuNavComponent,
     ListEmployeComponent,
     EmployeComponent,
-    CalendrierEmployeComponent
+    CalendrierEmployeComponent,
+    CollaborateursComponent,
+    
    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    FormsModule
   ],
   //FR
   providers: [{ provide : LOCALE_ID, useValue : 'fr-FR'}],

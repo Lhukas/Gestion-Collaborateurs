@@ -8,42 +8,33 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name="Collaborateurs")
+@Table(name = "collaborateurs")
 public class Collaborateurs {
 
 	
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long collaborateur_id;
 	
 	
-	@Column(name = "prenom")
+
 	private String prenom;
 	
-	@Column(name = "nom")
 	private String nom;
 	
-	private String mail;
 	
 	private String ticket_resto;
 
 
-
-
-	public Long getId() {
-		return id;
+	public Long getCollaborateur_id() {
+		return collaborateur_id;
 	}
 
 
-
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setCollaborateur_id(Long collaborateur_id) {
+		this.collaborateur_id = collaborateur_id;
 	}
-
-
 
 
 	public String getPrenom() {
@@ -51,13 +42,9 @@ public class Collaborateurs {
 	}
 
 
-
-
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-
-
 
 
 	public String getNom() {
@@ -65,27 +52,9 @@ public class Collaborateurs {
 	}
 
 
-
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-
-
-
-	public String getMail() {
-		return mail;
-	}
-
-
-
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-
 
 
 	public String getTicket_resto() {
@@ -93,21 +62,23 @@ public class Collaborateurs {
 	}
 
 
-
-
 	public void setTicket_resto(String ticket_resto) {
 		this.ticket_resto = ticket_resto;
 	}
 
 
-
-
 	@Override
 	public String toString() {
-		return "Collaborateurs [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + ", ticket_resto="
-				+ ticket_resto + "]";
+		return "Collaborateurs [collaborateur_id=" + collaborateur_id + ", prenom=" + prenom + ", nom=" + nom
+				+ ", ticket_resto=" + ticket_resto + "]";
 	}
 	
+	
+	
+
+
+
+
 	
 	
 		
