@@ -29,7 +29,7 @@ public class CollaborateursController {
 	
 	
 	
-	@GetMapping("/Collaborateurs")
+	@GetMapping("/Collaborateurs/")
 	public Iterable<Collaborateurs> getCollaborateurs(){
 		
 		return cs.getCollaborateurs();
@@ -41,21 +41,25 @@ public class CollaborateursController {
 		return cs.getCollaborateur(id);
 	}
 	
-	@RequestMapping("/saveCollaborateurs")
+	@RequestMapping("/Collaborateurs/save")
 	public void addCollaborateurs(@RequestBody Collaborateurs collaborateurs) {
 		cs.saveCollaborateurs(collaborateurs);
 	}
 	
-	@RequestMapping("/updateCollaborateurs"  )
+	@RequestMapping("/Collaborateurs/update"  )
 	public void updateCollaborateurs(@RequestBody Collaborateurs collaborateurs) {
 		cs.updateCollaborateurs(collaborateurs);
 	}
 	
 	
-	@RequestMapping("/delateCollaborateurs/{id}"  )
+	@RequestMapping("/Collaborateurs/delete/{id}"  )
 	public void delateCollaborateurs(@PathVariable Long id) {
 		cs.deleteCollaborateurs(id);
 	}
+	
+	
+	
+	
 
 }
 

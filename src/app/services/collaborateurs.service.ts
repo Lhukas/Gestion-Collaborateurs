@@ -10,15 +10,10 @@ import { Collaborateur } from '../models/collaborateur-modele';
   providedIn: 'root'
 })
 export class CollaborateursService {
-
-  
-
-
-
   constructor(private httpClient : HttpClient) { }
 
   getAllCollaborateurs(){
-    return this.httpClient.get<Collaborateur[]>(environment.API_URL+"/Collaborateurs");
+    return this.httpClient.get<Collaborateur[]>(environment.API_URL+"/Collaborateurs/");
   }
 
   getCollaborateur(id : number){
@@ -27,7 +22,7 @@ export class CollaborateursService {
   }
 
   deleteCollaborateur(id : number){
-   return this.httpClient.get(environment.API_URL + '/delateCollaborateurs/' + id)
+   return this.httpClient.get(environment.API_URL + '/Collaborateurs/delete/' + id)
     
   }
 
@@ -35,7 +30,7 @@ export class CollaborateursService {
 
 
   saveCollaborateurs(collaborateurToSave : Collaborateur){
-    return this.httpClient.post<Collaborateur>(environment.API_URL+"/saveCollaborateurs", collaborateurToSave);
+    return this.httpClient.post<Collaborateur>(environment.API_URL+"/Collaborateurs/save", collaborateurToSave);
   }
 
 
