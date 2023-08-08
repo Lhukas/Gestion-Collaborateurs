@@ -25,7 +25,7 @@ public class Jours {
 	
 	private String jour;
 	
-	
+	@Column(name = "mois")
 	private String mois;
 	
 	private String annee;

@@ -46,10 +46,13 @@ public class JoursService {
 	 }
 	 
 	
-
-	@Query("SELECT j FROM Jours j WHERE j.id_collaborateurs = :collaborateurId")
 	public List<Jours> getJoursByCollaborateurId(Long id) {
 		return jr.findAllById_collaborateurs(id);
+	}
+	
+	
+	public List<Jours> getJoursByMois(String mois) {
+		return jr.findAllByMois(mois);
 	}
 
 
