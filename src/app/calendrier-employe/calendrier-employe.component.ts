@@ -27,6 +27,7 @@ export class CalendrierEmployeComponent implements OnInit {
   datetraitement: string[] = [];
   jour!: Jours[];
   JourSelect: Jours[] = [];
+  choixTypeJour: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -143,15 +144,15 @@ export class CalendrierEmployeComponent implements OnInit {
     this.putJours();
   }
 
-  isToday(date: Date): boolean {
-    const today = new Date();
-    return date.toDateString() === today.toDateString();
+  isSelected(id: string): void {
+    document.getElementById(id)!.style.backgroundColor = "#1A598D";
+    document.getElementById(id)!.style.color = "white"
   }
-
-  isSelected(date: Date): boolean {
-    return date.toDateString() === this.selectedDate.toDateString();
+  notSelected(id: string): void {
+    document.getElementById(id)!.style.backgroundColor = "transparent";
+    document.getElementById(id)!.style.color = "black"
   }
-
+/*
   selectDate(date: Date): void {
     const dateSelected: Jours = new Jours(
       null,
@@ -182,6 +183,37 @@ export class CalendrierEmployeComponent implements OnInit {
     }
     console.log(this.JourSelect);
   }
+  */
+  selectDate(date: Date): void {
+    this.selectedDate = date;
+
+    const dateSelected  = this.getFormattedDateId(this.selectedDate)
+
+if (this.datetraitement.length == 0) {
+
+  this.datetraitement.push(dateSelected);
+  console.log("Élément ajouté !");
+  this.isSelected(dateSelected)
+
+} else {
+
+  const index = this.datetraitement.indexOf(dateSelected);
+
+  if (index !== -1) {
+    // L'élément est présent dans le tableau, on le supprime
+    this.datetraitement.splice(index, 1);
+    console.log("Élément supprimé !");
+    this.notSelected(dateSelected)
+  } else {
+    // L'élément n'est pas présent dans le tableau, on l'ajoute
+    this.datetraitement.push(dateSelected);
+    console.log("Élément ajouté !");
+    this.isSelected(dateSelected)
+  }
+}
+
+console.log(this.datetraitement)
+  }
   isSameDate(date1: Date, date2: Date): boolean {
     return (
       date1.getFullYear() === date2.getFullYear() &&
@@ -201,5 +233,8 @@ export class CalendrierEmployeComponent implements OnInit {
     return day + month + year;
   }
 
-  GestionJours(): void {}
+  GestionJours(): void {
+    this.choixTypeJour = true;
+    console.log("bouton cliqué")
+  }
 }

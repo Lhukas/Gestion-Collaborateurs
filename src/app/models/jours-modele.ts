@@ -7,8 +7,8 @@ export class Jours {
         public jour: string,
         public mois: string,
         public annee: string,
-        public type: string | null,
-        public eligible_tr: string | null,
+        public type: string ,
+        public eligible_tr: string,
         public idFormatLong : string 
       ) 
     {}

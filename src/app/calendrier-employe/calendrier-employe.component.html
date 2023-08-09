@@ -84,4 +84,58 @@
     </tbody>
 
   </table>
-</div>
+
+<div class="back_popup" *ngIf="choixTypeJour">
+  <div id="popup" class="popup" >
+    <span class="close-btn" (click)="choixTypeJour = false">&#10006;</span>
+    <div class="popup-header">
+      <h2>Pop-up avec Tableau et Checkbox</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Jours</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let datetraitementItem of datetraitement; let i = index">
+          <td>{{datetraitementItem}}</td>
+        </tr>
+      </tbody>
+      </table>
+      <h2>Pop-up avec Cases à Cocher</h2>
+      <div class="option-group">
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="CP">
+          <span class="custom-radio"></span>
+          <span>Congé payé</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="PRESENT">
+          <span class="custom-radio"></span>
+          <span>Present</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="ABS">
+          <span class="custom-radio"></span>
+          <span>Absent</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="CSS">
+          <span class="custom-radio"></span>
+          <span>Congé sans solde</span>
+        </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="DEMIJ">
+          <span class="custom-radio"></span>
+          <span>Demi journée</span>
+        </label>
+      </div>
+
+
+      <button class="btn" onclick="closePopup()">Valider</button>
+    </div></div>
+  </div>
+
+
