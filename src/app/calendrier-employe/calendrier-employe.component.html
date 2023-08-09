@@ -1,7 +1,7 @@
 <div class="container-employe">
   <h3>
     Calendrider de : <br />
-    {{ prenom | uppercase }} {{ nom }}
+    {{ prenom| uppercase }} {{ nom }}
   </h3>
 
   <div class="calendar">
@@ -19,9 +19,8 @@
           class="day"
           *ngFor="let date of dates"
           (click)="selectDate(date)"
-          [attr.id]="getFormattedDateId(date)"
         >
-          <p>{{ date.getDate() }}</p>
+          <p [attr.id]="getFormattedDateId(date)">{{ date.getDate() }}</p>
         </div>
       </div>
     </div>

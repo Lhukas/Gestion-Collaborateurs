@@ -17,7 +17,6 @@ export class CollaborateursService {
   }
 
   getCollaborateur(id : number){
-
     return this.httpClient.get<Collaborateur>(environment.API_URL + '/Collaborateurs/' + id)
   }
 

@@ -39,9 +39,12 @@ export class CalendrierEmployeComponent implements OnInit {
     this.generateCalendar(this.selectedDate);
 
     this.employe_id = this.route.snapshot.params['id'];
-    //this.collaborateur = this.cs.getCollaborateur(employe_id)
-    console.log(this.cs.getCollaborateur(this.employe_id));
-    //console.log(this.collaborateur)
+
+    this.cs.getCollaborateur(this.employe_id).subscribe((collaborateur: Collaborateur) => {
+      this.collaborateur = collaborateur;
+      this.prenom = collaborateur.prenom
+      this.nom = collaborateur.nom
+    });
   }
 
   ngAfterViewInit(): void {
@@ -63,9 +66,33 @@ this.js.getJoursByMoisAndId(this.employe_id,currentMois).subscribe(
       this.jour = data;
       console.log(currentMois)
       console.log(this.jour)
-      this.jour.forEach(function(item) {
-        console.log(item.idFormatLong)
-        console.log(document.getElementById(item.idFormatLong))
+      this.jour.forEach(function(jour) {
+       const jourDom = document.getElementById(jour.idFormatLong)
+        console.log(jour.type)
+        switch (jour.type) {
+            case "CSS":
+              jourDom!.style.backgroundColor = "black";
+              jourDom!.style.color = "white";
+            break;
+
+            case "CP":
+              jourDom!.style.backgroundColor = "orange";
+              jourDom!.style.color = "black";
+            break;
+
+            case "Present":
+              jourDom!.style.backgroundColor = "green";
+              jourDom!.style.color = "white";
+            break;
+
+            case "Absent":
+              jourDom!.style.backgroundColor = "red";
+              jourDom!.style.color = "white";
+            break;
+        
+          default:
+            break;
+        }
       });
     },
     (error) => {
