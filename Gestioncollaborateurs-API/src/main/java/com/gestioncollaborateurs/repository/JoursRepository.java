@@ -22,4 +22,8 @@ public interface JoursRepository extends CrudRepository <Jours, Long>{
 	@Query("SELECT j FROM Jours j WHERE j.mois = :mois")
 	List<Jours> findAllByMois(String mois);
 
+
+	@Query("SELECT j FROM Jours j WHERE j.mois = :mois and j.id_collaborateurs = :id")
+	List<Jours> findAllByMoisAndId(Long id, String mois);
+
 }

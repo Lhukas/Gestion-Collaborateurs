@@ -26,7 +26,6 @@ ngOnInit(): void {
 this.cs.getAllCollaborateurs().subscribe(
     (data: any[]) => {
       this.collaborateurs = data;
-      console.log(this.collaborateurs)
     },
     (error) => {
       console.error('Erreur lors du chargement des collaborateurs : ', error);

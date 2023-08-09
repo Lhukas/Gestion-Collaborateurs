@@ -119,6 +119,14 @@ public class Jours {
 
 
 	public void setIdFormatLong() {
+		
+		if(Integer.parseInt(this.jour)< 10) {
+			setJour("0"+this.jour);
+		}
+		
+		if(Integer.parseInt(this.mois)< 10) {
+			setMois("0"+this.mois);
+		}
 		this.idFormatLong = this.jour + this.mois + this.annee;
 	}
 	

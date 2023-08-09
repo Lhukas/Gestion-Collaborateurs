@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CollaborateursService } from '../services/collaborateurs.service';
 import { Collaborateur } from '../models/collaborateur-modele';
+import { Jours } from '../models/jours-modele';
+import { JoursServices } from '../services/jours.services';
 
 @Component({
   selector: 'app-calendrier-employe',
@@ -16,14 +18,19 @@ export class CalendrierEmployeComponent implements OnInit {
   selectedDate!: Date;
   prenom!: string;
   nom!: string;
+  employe_id !: number;
+
+  current_month_string !:string;
 
   collaborateur!: Collaborateur;
 
   datetraitement: string[] = [];
+  jour!: Jours[]
 
   constructor(
     private route: ActivatedRoute,
-    private cs: CollaborateursService
+    private cs: CollaborateursService,
+    private js : JoursServices
   ) {}
 
   ngOnInit(): void {
@@ -31,16 +38,41 @@ export class CalendrierEmployeComponent implements OnInit {
     this.selectedDate = new Date();
     this.generateCalendar(this.selectedDate);
 
-    const employe_id = +this.route.snapshot.params['id'];
+    this.employe_id = this.route.snapshot.params['id'];
     //this.collaborateur = this.cs.getCollaborateur(employe_id)
-    console.log(this.cs.getCollaborateur(employe_id));
+    console.log(this.cs.getCollaborateur(this.employe_id));
     //console.log(this.collaborateur)
   }
 
   ngAfterViewInit(): void {
+
+  this.putJours()
+
     /* console.log(document.getElementById("26062023"))
     document.getElementById("26062023")!.style.backgroundColor = "red" */
   }
+
+
+putJours(){
+   const currentMois  = this.selectedDate.getMonth() < 9 
+  ? "0" + (this.selectedDate.getMonth() + 1)
+  : (this.selectedDate.getMonth() + 1).toString();
+
+this.js.getJoursByMoisAndId(this.employe_id,currentMois).subscribe(
+    (data: Jours[]) => {
+      this.jour = data;
+      console.log(currentMois)
+      console.log(this.jour)
+      this.jour.forEach(function(item) {
+        console.log(item.idFormatLong)
+        console.log(document.getElementById(item.idFormatLong))
+      });
+    },
+    (error) => {
+      console.error('Erreur lors du chargement des collaborateurs : ', error);
+    }
+  );
+}
 
   generateCalendar(date: Date): void {
     this.currentMonth = date.toLocaleString('default', {
@@ -71,13 +103,15 @@ export class CalendrierEmployeComponent implements OnInit {
   }
 
   prevMonth(): void {
-    this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
+    this.selectedDate.setMonth((this.selectedDate.getMonth()) - 1);
     this.generateCalendar(this.selectedDate);
+    this.putJours()
   }
 
   nextMonth(): void {
-    this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
+    this.selectedDate.setMonth((this.selectedDate.getMonth()) + 1);
     this.generateCalendar(this.selectedDate);
+   this.putJours()
   }
 
   isToday(date: Date): boolean {
