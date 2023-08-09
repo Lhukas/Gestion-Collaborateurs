@@ -2,14 +2,14 @@ export class Jours {
    
   
     constructor(
-        public id_jour: number,
-        public id_collaborateurs: number,
-        public jour: number,
-        public mois: number,
-        public annee: number,
-        public type: string,
-        public eligible_tr: string,
-        public idFormatLong : string
+        public id_jour: number | null,
+        public id_collaborateurs: number | null,
+        public jour: string,
+        public mois: string,
+        public annee: string,
+        public type: string | null,
+        public eligible_tr: string | null,
+        public idFormatLong : string 
       ) 
     {}
   }

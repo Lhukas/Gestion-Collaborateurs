@@ -169,3 +169,49 @@
     border-radius: 50%;
 }
 
+
+
+
+/*css table
+
+/* Style pour le tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour l'en-tête du tableau */
+thead {
+  background-color: #f2f2f2;
+}
+
+thead th {
+  padding: 10px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Style pour les cellules du tableau */
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+/* Style pour les boutons de suppression */
+tbody button {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+tbody button:hover {
+  background-color: #d32f2f;
+}
+

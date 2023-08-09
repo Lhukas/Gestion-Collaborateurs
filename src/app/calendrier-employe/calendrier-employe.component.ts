@@ -18,19 +18,20 @@ export class CalendrierEmployeComponent implements OnInit {
   selectedDate!: Date;
   prenom!: string;
   nom!: string;
-  employe_id !: number;
+  employe_id!: number;
 
-  current_month_string !:string;
+  current_month_string!: string;
 
   collaborateur!: Collaborateur;
 
   datetraitement: string[] = [];
-  jour!: Jours[]
+  jour!: Jours[];
+  JourSelect: Jours[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private cs: CollaborateursService,
-    private js : JoursServices
+    private js: JoursServices
   ) {}
 
   ngOnInit(): void {
@@ -40,66 +41,67 @@ export class CalendrierEmployeComponent implements OnInit {
 
     this.employe_id = this.route.snapshot.params['id'];
 
-    this.cs.getCollaborateur(this.employe_id).subscribe((collaborateur: Collaborateur) => {
-      this.collaborateur = collaborateur;
-      this.prenom = collaborateur.prenom
-      this.nom = collaborateur.nom
-    });
+    this.cs
+      .getCollaborateur(this.employe_id)
+      .subscribe((collaborateur: Collaborateur) => {
+        this.collaborateur = collaborateur;
+        this.prenom = collaborateur.prenom;
+        this.nom = collaborateur.nom;
+      });
   }
 
   ngAfterViewInit(): void {
-
-  this.putJours()
+    this.putJours();
 
     /* console.log(document.getElementById("26062023"))
     document.getElementById("26062023")!.style.backgroundColor = "red" */
   }
 
+  putJours() {
+    const currentMois =
+      this.selectedDate.getMonth() < 9
+        ? '0' + (this.selectedDate.getMonth() + 1)
+        : (this.selectedDate.getMonth() + 1).toString();
 
-putJours(){
-   const currentMois  = this.selectedDate.getMonth() < 9 
-  ? "0" + (this.selectedDate.getMonth() + 1)
-  : (this.selectedDate.getMonth() + 1).toString();
+    this.js.getJoursByMoisAndId(this.employe_id, currentMois).subscribe(
+      (data: Jours[]) => {
+        this.jour = data;
+        console.log(currentMois);
+        console.log(this.jour);
+        this.jour.forEach(function (jour) {
+          const jourDom = document.getElementById(jour.idFormatLong);
+          console.log(jour.type);
+          switch (jour.type) {
+            case 'CSS':
+              jourDom!.style.backgroundColor = 'black';
+              jourDom!.style.color = 'white';
+              break;
 
-this.js.getJoursByMoisAndId(this.employe_id,currentMois).subscribe(
-    (data: Jours[]) => {
-      this.jour = data;
-      console.log(currentMois)
-      console.log(this.jour)
-      this.jour.forEach(function(jour) {
-       const jourDom = document.getElementById(jour.idFormatLong)
-        console.log(jour.type)
-        switch (jour.type) {
-            case "CSS":
-              jourDom!.style.backgroundColor = "black";
-              jourDom!.style.color = "white";
-            break;
+            case 'CP':
+              jourDom!.style.backgroundColor = 'orange';
+              jourDom!.style.color = 'black';
+              break;
 
-            case "CP":
-              jourDom!.style.backgroundColor = "orange";
-              jourDom!.style.color = "black";
-            break;
+            case 'Present':
+              jourDom!.style.backgroundColor = 'green';
+              jourDom!.style.color = 'white';
+              break;
 
-            case "Present":
-              jourDom!.style.backgroundColor = "green";
-              jourDom!.style.color = "white";
-            break;
+            case 'Absent':
+              jourDom!.style.backgroundColor = 'red';
+              jourDom!.style.color = 'white';
+              break;
 
-            case "Absent":
-              jourDom!.style.backgroundColor = "red";
-              jourDom!.style.color = "white";
-            break;
-        
-          default:
-            break;
-        }
-      });
-    },
-    (error) => {
-      console.error('Erreur lors du chargement des collaborateurs : ', error);
-    }
-  );
-}
+            default:
+              break;
+          }
+        });
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des collaborateurs : ', error);
+      }
+    );
+  }
 
   generateCalendar(date: Date): void {
     this.currentMonth = date.toLocaleString('default', {
@@ -130,15 +132,15 @@ this.js.getJoursByMoisAndId(this.employe_id,currentMois).subscribe(
   }
 
   prevMonth(): void {
-    this.selectedDate.setMonth((this.selectedDate.getMonth()) - 1);
+    this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
     this.generateCalendar(this.selectedDate);
-    this.putJours()
+    this.putJours();
   }
 
   nextMonth(): void {
-    this.selectedDate.setMonth((this.selectedDate.getMonth()) + 1);
+    this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
     this.generateCalendar(this.selectedDate);
-   this.putJours()
+    this.putJours();
   }
 
   isToday(date: Date): boolean {
@@ -151,26 +153,34 @@ this.js.getJoursByMoisAndId(this.employe_id,currentMois).subscribe(
   }
 
   selectDate(date: Date): void {
-    this.selectedDate = date;
+    const dateSelected: Jours = new Jours(
+      null,
+      this.collaborateur.collaborateur_id,
+      date.getDate().toString(),
+      date.getMonth().toString(),
+      date.getFullYear().toString(),
+      null,
+      null,
+      this.getFormattedDateId(date)
+    );
 
-    const dateSelected = this.getFormattedDateId(this.selectedDate);
-
-    if (this.datetraitement.length == 0) {
-      this.datetraitement.push(dateSelected);
+    if (this.JourSelect.length == 0) {
+      this.JourSelect.push(dateSelected);
       console.log('Élément ajouté !');
     } else {
-      const index = this.datetraitement.indexOf(dateSelected);
+      const index = this.JourSelect.indexOf(dateSelected);
 
       if (index !== -1) {
         // L'élément est présent dans le tableau, on le supprime
-        this.datetraitement.splice(index, 1);
+        this.JourSelect.splice(index, 1);
         console.log('Élément supprimé !');
       } else {
         // L'élément n'est pas présent dans le tableau, on l'ajoute
-        this.datetraitement.push(dateSelected);
+        this.JourSelect.push(dateSelected);
         console.log('Élément ajouté !');
       }
     }
+    console.log(this.JourSelect);
   }
   isSameDate(date1: Date, date2: Date): boolean {
     return (

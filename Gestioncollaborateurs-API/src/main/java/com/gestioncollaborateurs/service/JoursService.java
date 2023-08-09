@@ -57,7 +57,6 @@ public class JoursService {
 
 
 	public List<Jours> getJoursByMoisAndId(Long id, String mois) {
-		
 		return jr.findAllByMoisAndId(id,mois);
 	}
 

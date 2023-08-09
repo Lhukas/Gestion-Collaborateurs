@@ -18,9 +18,8 @@
         <div
           class="day"
           *ngFor="let date of dates"
-          (click)="selectDate(date)"
         >
-          <p [attr.id]="getFormattedDateId(date)">{{ date.getDate() }}</p>
+          <p (click)="selectDate(date)" [attr.id]="getFormattedDateId(date)">{{ date.getDate() }}</p>
         </div>
       </div>
     </div>
@@ -63,6 +62,26 @@
   </div>
 
   <h1>Historique du mois</h1>
+ 
+  <table>
+    <thead>
+      <tr>
+        <th>Jours formatté</th>
+        <th>Jours</th>
+        <th>Mois</th>
+        <th>Année</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jourItem of jour; let i = index">
+        <td>{{ jourItem.idFormatLong}}</td>
+        <td>{{ jourItem.jour}}</td>
+        <td>{{ jourItem.mois}}</td>
+        <td>{{ jourItem.annee}}</td>
+        <td>{{ jourItem.type}}</td>
+      </tr>
+    </tbody>
 
-  <table></table>
+  </table>
 </div>
