@@ -42,7 +42,6 @@ public class JoursService {
 		 jour.setIdFormatLong();
 		 return jr.save(jour);
 		
-		
 	 }
 	 
 	
