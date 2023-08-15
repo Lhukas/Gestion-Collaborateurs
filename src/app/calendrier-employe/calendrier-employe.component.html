@@ -106,36 +106,39 @@
       <h2>Type de journée</h2>
       <div class="option-group">
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="CP">
+          <input type="radio" class="radio-input" name="typeConge" value="CP" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Congé payé</span>
         </label>
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="PRESENT">
+          <input type="radio" class="radio-input" name="typeConge" value="PRESENT" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Present</span>
         </label>
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="ABS">
+          <input type="radio" class="radio-input" name="typeConge" value="ABS" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Absent</span>
         </label>
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="CSS">
+          <input type="radio" class="radio-input" name="typeConge" value="CSS" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Congé sans solde</span>
         </label>
 
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="DEMIJ">
+          <input type="radio" class="radio-input" name="typeConge" value="DEMIJ" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Demi journée</span>
         </label>
       </div>
 
 
-      <button class="btn" onclick="closePopup()">Valider</button>
+      <button class="btn" (click)="saveJours()">Valider</button>
     </div></div>
   </div>
+
+  <app-loading *ngIf="loadingScreen" [message]="messageLoading"></app-loading>
+
 
 

@@ -15,6 +15,7 @@ import { CalendrierEmployeComponent } from './calendrier-employe/calendrier-empl
 import { HttpClientModule } from '@angular/common/http';
 import { CollaborateursComponent } from './collaborateurs/collaborateurs.component';
 import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     EmployeComponent,
     CalendrierEmployeComponent,
     CollaborateursComponent,
+    LoadingComponent,
     
    
   ],

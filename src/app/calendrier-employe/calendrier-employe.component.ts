@@ -5,6 +5,7 @@ import { CollaborateursService } from '../services/collaborateurs.service';
 import { Collaborateur } from '../models/collaborateur-modele';
 import { Jours } from '../models/jours-modele';
 import { JoursServices } from '../services/jours.services';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-calendrier-employe',
@@ -28,6 +29,10 @@ export class CalendrierEmployeComponent implements OnInit {
   jour!: Jours[];
   JourSelect: Jours[] = [];
   choixTypeJour: boolean = false;
+  typeCongeSelectionne!: string;
+  eligibleTr!: string;
+  messageLoading!: string;
+  loadingScreen!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,9 +58,6 @@ export class CalendrierEmployeComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.putJours();
-
-    /* console.log(document.getElementById("26062023"))
-    document.getElementById("26062023")!.style.backgroundColor = "red" */
   }
 
   putJours() {
@@ -67,11 +69,8 @@ export class CalendrierEmployeComponent implements OnInit {
     this.js.getJoursByMoisAndId(this.employe_id, currentMois).subscribe(
       (data: Jours[]) => {
         this.jour = data;
-        console.log(currentMois);
-        console.log(this.jour);
         this.jour.forEach(function (jour) {
           const jourDom = document.getElementById(jour.idFormatLong);
-          console.log(jour.type);
           switch (jour.type) {
             case 'CSS':
               jourDom!.style.backgroundColor = 'black';
@@ -83,12 +82,12 @@ export class CalendrierEmployeComponent implements OnInit {
               jourDom!.style.color = 'black';
               break;
 
-            case 'Present':
+            case 'PRESENT':
               jourDom!.style.backgroundColor = 'green';
               jourDom!.style.color = 'white';
               break;
 
-            case 'Absent':
+            case 'ABS':
               jourDom!.style.backgroundColor = 'red';
               jourDom!.style.color = 'white';
               break;
@@ -145,14 +144,14 @@ export class CalendrierEmployeComponent implements OnInit {
   }
 
   isSelected(id: string): void {
-    document.getElementById(id)!.style.backgroundColor = "#1A598D";
-    document.getElementById(id)!.style.color = "white"
+    document.getElementById(id)!.style.backgroundColor = '#1A598D';
+    document.getElementById(id)!.style.color = 'white';
   }
   notSelected(id: string): void {
-    document.getElementById(id)!.style.backgroundColor = "transparent";
-    document.getElementById(id)!.style.color = "black"
+    document.getElementById(id)!.style.backgroundColor = 'transparent';
+    document.getElementById(id)!.style.color = 'black';
   }
-/*
+  /*
   selectDate(date: Date): void {
     const dateSelected: Jours = new Jours(
       null,
@@ -187,32 +186,29 @@ export class CalendrierEmployeComponent implements OnInit {
   selectDate(date: Date): void {
     this.selectedDate = date;
 
-    const dateSelected  = this.getFormattedDateId(this.selectedDate)
+    const dateSelected = this.getFormattedDateId(this.selectedDate);
 
-if (this.datetraitement.length == 0) {
+    if (this.datetraitement.length == 0) {
+      this.datetraitement.push(dateSelected);
+      console.log('Élément ajouté !');
+      this.isSelected(dateSelected);
+    } else {
+      const index = this.datetraitement.indexOf(dateSelected);
 
-  this.datetraitement.push(dateSelected);
-  console.log("Élément ajouté !");
-  this.isSelected(dateSelected)
+      if (index !== -1) {
+        // L'élément est présent dans le tableau, on le supprime
+        this.datetraitement.splice(index, 1);
+        console.log('Élément supprimé !');
+        this.notSelected(dateSelected);
+      } else {
+        // L'élément n'est pas présent dans le tableau, on l'ajoute
+        this.datetraitement.push(dateSelected);
+        console.log('Élément ajouté !');
+        this.isSelected(dateSelected);
+      }
+    }
 
-} else {
-
-  const index = this.datetraitement.indexOf(dateSelected);
-
-  if (index !== -1) {
-    // L'élément est présent dans le tableau, on le supprime
-    this.datetraitement.splice(index, 1);
-    console.log("Élément supprimé !");
-    this.notSelected(dateSelected)
-  } else {
-    // L'élément n'est pas présent dans le tableau, on l'ajoute
-    this.datetraitement.push(dateSelected);
-    console.log("Élément ajouté !");
-    this.isSelected(dateSelected)
-  }
-}
-
-console.log(this.datetraitement)
+    console.log(this.datetraitement);
   }
   isSameDate(date1: Date, date2: Date): boolean {
     return (
@@ -235,6 +231,44 @@ console.log(this.datetraitement)
 
   GestionJours(): void {
     this.choixTypeJour = true;
-    console.log("bouton cliqué")
+  }
+
+  async saveJours(): Promise<void> {
+    this.loadingScreen = true;
+    this.messageLoading = 'sauvegarde en cours....';
+    switch (this.typeCongeSelectionne) {
+      case 'CP':
+        this.eligibleTr = 'OUI';
+        break;
+      case 'PRESENT':
+        this.eligibleTr = 'OUI';
+        break;
+      default:
+        this.eligibleTr = 'NON';
+        break;
+    }
+
+    await this.datetraitement.forEach((element) => {
+      const jourToSave: Jours = new Jours(
+        null,
+        this.collaborateur.collaborateur_id,
+        element.slice(0, 2),
+        element.slice(3, 4),
+        element.slice(4, 8),
+        this.typeCongeSelectionne,
+        this.eligibleTr,
+        element
+      );
+      console.log("jours :" +  element.slice(0, 2))
+
+      this.js.saveJours(jourToSave).subscribe();
+    });
+
+    this.messageLoading = 'Terminée';
+    this.datetraitement = [];
+    this.choixTypeJour = false;
+    this.ngOnInit();
+    await this.putJours();
+    this.loadingScreen = false;
   }
 }

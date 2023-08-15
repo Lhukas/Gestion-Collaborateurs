@@ -9,7 +9,7 @@ export class Jours {
         public annee: string,
         public type: string ,
         public eligible_tr: string,
-        public idFormatLong : string 
+        public idFormatLong : string  
       ) 
     {}
   }
