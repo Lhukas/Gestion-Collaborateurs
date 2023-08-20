@@ -81,6 +81,13 @@
   border-radius: 100%;
 }
 
+.day > p {
+  width: 22px;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
 /* Styles for the selected day cell */
 .day.selected {
   background-color: #007bff;
@@ -219,7 +226,7 @@ tbody button:hover {
 
 /*POPU UP
 */
-.back_popup{
+.back_popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -227,20 +234,23 @@ tbody button:hover {
   height: 100%;
   background-color: rgba(128, 128, 128, 0.950);
 }
+
 .popup {
-    display: block;
-    border-radius: 15px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 999;
-  }
+  display: block;
+  border-radius: 15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  max-height: 90%; /* Limiter la hauteur de la popup pour qu'elle ne dépasse pas l'écran */
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  overflow-y: auto; /* Ajouter une barre de défilement verticale lorsque le contenu dépasse */
+}
+
 
   /* Styles pour le bouton */
   .btn {

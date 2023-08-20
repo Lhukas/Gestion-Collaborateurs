@@ -59,6 +59,9 @@
         <div class="color-signification"><p>Demi-journée</p></div>
       </div>
     </div>
+
+    <h3>Nombre de tickets restaurant éligible a ce mois : </h3>
+    <h2>{{nbTicket}}</h2>
   </div>
 
   <h1>Historique du mois</h1>
@@ -84,6 +87,8 @@
     </tbody>
 
   </table>
+
+  
 
 <div class="back_popup" *ngIf="choixTypeJour">
   <div id="popup" class="popup" >
@@ -115,6 +120,14 @@
           <span class="custom-radio"></span>
           <span>Present</span>
         </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="ECOLE" [(ngModel)]="typeCongeSelectionne">
+          <span class="custom-radio"></span>
+          <span>ECOLE</span>
+        </label>
+
+
         <label class="radio-label">
           <input type="radio" class="radio-input" name="typeConge" value="ABS" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
@@ -131,6 +144,8 @@
           <span class="custom-radio"></span>
           <span>Demi journée</span>
         </label>
+
+        
       </div>
 
 

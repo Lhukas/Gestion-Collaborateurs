@@ -34,6 +34,8 @@ export class CalendrierEmployeComponent implements OnInit {
   messageLoading!: string;
   loadingScreen!: boolean;
 
+  nbTicket: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     private cs: CollaborateursService,
@@ -57,52 +59,61 @@ export class CalendrierEmployeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.putJours();
+    this.updateJours();
   }
 
-  putJours() {
+
+  async updateJours() {
     const currentMois =
       this.selectedDate.getMonth() < 9
         ? '0' + (this.selectedDate.getMonth() + 1)
         : (this.selectedDate.getMonth() + 1).toString();
 
-    this.js.getJoursByMoisAndId(this.employe_id, currentMois).subscribe(
-      (data: Jours[]) => {
-        this.jour = data;
-        this.jour.forEach(function (jour) {
-          const jourDom = document.getElementById(jour.idFormatLong);
-          switch (jour.type) {
-            case 'CSS':
-              jourDom!.style.backgroundColor = 'black';
-              jourDom!.style.color = 'white';
-              break;
+    this.nbTicket = 0;
 
-            case 'CP':
-              jourDom!.style.backgroundColor = 'orange';
-              jourDom!.style.color = 'black';
-              break;
+    const data: Jours[] = await this.js
+      .getJoursByMoisAndId(this.employe_id, currentMois)
+      .toPromise();
 
-            case 'PRESENT':
-              jourDom!.style.backgroundColor = 'green';
-              jourDom!.style.color = 'white';
-              break;
+    this.jour = data;
+    this.jour.sort((a, b) => parseInt(a.jour) - parseInt(b.jour));
 
-            case 'ABS':
-              jourDom!.style.backgroundColor = 'red';
-              jourDom!.style.color = 'white';
-              break;
-
-            default:
-              break;
-          }
-        });
-      },
-      (error) => {
-        console.error('Erreur lors du chargement des collaborateurs : ', error);
+    this.jour.forEach((jour) => {
+      if (jour.eligible_tr === 'OUI') {
+        this.nbTicket++;
       }
-    );
+      
+      const jourDom = document.getElementById(jour.idFormatLong);
+      switch (jour.type) {
+        case 'CSS':
+          jourDom!.style.backgroundColor = 'black';
+          jourDom!.style.color = 'white';
+          break;
+        case 'CP':
+          jourDom!.style.backgroundColor = 'orange';
+          jourDom!.style.color = 'black';
+          break;
+        case 'PRESENT':
+          jourDom!.style.backgroundColor = 'green';
+          jourDom!.style.color = 'white';
+          break;
+        case 'ABS':
+          jourDom!.style.backgroundColor = 'red';
+          jourDom!.style.color = 'white';
+          break;
+        case 'ECOLE':
+          jourDom!.style.backgroundColor = 'red';
+          jourDom!.style.color = 'white';
+          break;
+        default:
+          break;
+      }
+    });
   }
 
+
+
+ 
   generateCalendar(date: Date): void {
     this.currentMonth = date.toLocaleString('default', {
       month: 'long',
@@ -134,13 +145,13 @@ export class CalendrierEmployeComponent implements OnInit {
   prevMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
     this.generateCalendar(this.selectedDate);
-    this.putJours();
+    this.updateJours();
   }
 
   nextMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
     this.generateCalendar(this.selectedDate);
-    this.putJours();
+    this.updateJours();
   }
 
   isSelected(id: string): void {
@@ -151,38 +162,7 @@ export class CalendrierEmployeComponent implements OnInit {
     document.getElementById(id)!.style.backgroundColor = 'transparent';
     document.getElementById(id)!.style.color = 'black';
   }
-  /*
-  selectDate(date: Date): void {
-    const dateSelected: Jours = new Jours(
-      null,
-      this.collaborateur.collaborateur_id,
-      date.getDate().toString(),
-      date.getMonth().toString(),
-      date.getFullYear().toString(),
-      null,
-      null,
-      this.getFormattedDateId(date)
-    );
 
-    if (this.JourSelect.length == 0) {
-      this.JourSelect.push(dateSelected);
-      console.log('Élément ajouté !');
-    } else {
-      const index = this.JourSelect.indexOf(dateSelected);
-
-      if (index !== -1) {
-        // L'élément est présent dans le tableau, on le supprime
-        this.JourSelect.splice(index, 1);
-        console.log('Élément supprimé !');
-      } else {
-        // L'élément n'est pas présent dans le tableau, on l'ajoute
-        this.JourSelect.push(dateSelected);
-        console.log('Élément ajouté !');
-      }
-    }
-    console.log(this.JourSelect);
-  }
-  */
   selectDate(date: Date): void {
     this.selectedDate = date;
 
@@ -233,11 +213,12 @@ export class CalendrierEmployeComponent implements OnInit {
     this.choixTypeJour = true;
   }
 
-  async saveJours(): Promise<void> {
+
+ async saveJours() {
     this.loadingScreen = true;
     this.messageLoading = 'sauvegarde en cours....';
     switch (this.typeCongeSelectionne) {
-      case 'CP':
+      case 'ECOLE':
         this.eligibleTr = 'OUI';
         break;
       case 'PRESENT':
@@ -248,7 +229,7 @@ export class CalendrierEmployeComponent implements OnInit {
         break;
     }
 
-    await this.datetraitement.forEach((element) => {
+     this.datetraitement.forEach((element) => {
       const jourToSave: Jours = new Jours(
         null,
         this.collaborateur.collaborateur_id,
@@ -260,6 +241,7 @@ export class CalendrierEmployeComponent implements OnInit {
         element
       );
       console.log("jours :" +  element.slice(0, 2))
+      console.log("mois :" +  element.slice(3, 4))
 
       this.js.saveJours(jourToSave).subscribe();
     });
@@ -267,8 +249,10 @@ export class CalendrierEmployeComponent implements OnInit {
     this.messageLoading = 'Terminée';
     this.datetraitement = [];
     this.choixTypeJour = false;
-    this.ngOnInit();
-    await this.putJours();
+
     this.loadingScreen = false;
+    window.location.reload()
   }
 }
+
+

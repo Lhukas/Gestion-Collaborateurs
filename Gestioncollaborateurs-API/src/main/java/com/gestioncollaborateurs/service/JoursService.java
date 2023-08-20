@@ -39,9 +39,24 @@ public class JoursService {
 	
 	 
 	 public Jours saveJour(Jours jour) {
-		 jour.setIdFormatLong();
-		 return jr.save(jour);
 		
+		 
+		 jour.setIdFormatLong();
+		 
+		 Jours joursExistant = jr.findJour(jour.getIdFormatLong());
+		  
+		  
+		  if(joursExistant != null) {
+			 jr.deleteById(joursExistant.getId_jours());
+		  }
+		 
+		return jr.save(jour);
+		
+		
+	 }
+	 
+	 public void deleteJourById() {
+		 
 	 }
 	 
 	

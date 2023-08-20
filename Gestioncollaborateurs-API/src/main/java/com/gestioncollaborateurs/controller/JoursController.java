@@ -32,13 +32,13 @@ public class JoursController {
 	
 	
 	@GetMapping("/Jours/{id}")
-	public Optional<Jours> getJour(Long id){
+	public Optional<Jours> getJour( @PathVariable Long id){
 		return js.getJour(id);
 	}
 	
 	@RequestMapping("/Jours/save")
-	public void addJours(@RequestBody Jours jour) {
-		js.saveJour(jour);
+	public Jours addJours(@RequestBody Jours jour) {
+		return js.saveJour(jour);
 	}
 	
 	@RequestMapping("/Jours/update")

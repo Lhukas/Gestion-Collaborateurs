@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.gestioncollaborateurs.model.Collaborateurs;
 import com.gestioncollaborateurs.repository.CollaborateurRepository;
+import com.gestioncollaborateurs.repository.JoursRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.Data;
 
 @Data
@@ -19,6 +21,9 @@ public class CollaborateursService {
 	
 	@Autowired
 	private CollaborateurRepository cr;
+	
+	@Autowired
+	private JoursRepository jr;
 	
 	
 	public Collaborateurs getCollaborateur( final Long id ){
@@ -33,8 +38,11 @@ public class CollaborateursService {
 		return cr.findAll();
 	}
 	
+	@Transactional
 	public void deleteCollaborateurs( final Long id) {
 		cr.deleteById(id);
+		jr.deleteAllJoursByCollaborateur(id);
+		
 	}
 
 
