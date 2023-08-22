@@ -43,7 +43,7 @@ export class CalendrierEmployeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.weekdays = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+    this.weekdays = [ 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam','Dim'];
     this.selectedDate = new Date();
     this.generateCalendar(this.selectedDate);
 
@@ -119,28 +119,35 @@ export class CalendrierEmployeComponent implements OnInit {
       month: 'long',
       year: 'numeric',
     });
-
+  
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const daysInMonth = lastDayOfMonth.getDate();
-
-    const firstDayOfWeek = firstDayOfMonth.getDay();
-
+  
+    // Adjusting the first day of the week to be Monday (1)
+    let firstDayOfWeek = firstDayOfMonth.getDay();
+    if (firstDayOfWeek === 0) {
+      firstDayOfWeek = 6; // Sunday, adjust to the last day of the previous week
+    } else {
+      firstDayOfWeek--; // Adjusting to Monday-based indexing
+    }
+  
     this.dates = [];
-
+  
     // Add previous month's days to fill the first week
     for (let i = firstDayOfWeek; i > 0; i--) {
       const prevDate = new Date(firstDayOfMonth);
       prevDate.setDate(prevDate.getDate() - i);
       this.dates.push(prevDate);
     }
-
+  
     // Add current month's days
     for (let i = 1; i <= daysInMonth; i++) {
       const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
       this.dates.push(currentDate);
     }
   }
+  
 
   prevMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
@@ -213,10 +220,10 @@ export class CalendrierEmployeComponent implements OnInit {
     this.choixTypeJour = true;
   }
 
-
- async saveJours() {
+  async saveJours() {
     this.loadingScreen = true;
     this.messageLoading = 'sauvegarde en cours....';
+    
     switch (this.typeCongeSelectionne) {
       case 'ECOLE':
         this.eligibleTr = 'OUI';
@@ -228,9 +235,9 @@ export class CalendrierEmployeComponent implements OnInit {
         this.eligibleTr = 'NON';
         break;
     }
-
-     this.datetraitement.forEach((element) => {
-      const jourToSave: Jours = new Jours(
+  
+    const savePromises = this.datetraitement.map(async (element) => {
+      const jourToSave = new Jours(
         null,
         this.collaborateur.collaborateur_id,
         element.slice(0, 2),
@@ -240,19 +247,23 @@ export class CalendrierEmployeComponent implements OnInit {
         this.eligibleTr,
         element
       );
+      
       console.log("jours :" +  element.slice(0, 2))
       console.log("mois :" +  element.slice(3, 4))
-
-      this.js.saveJours(jourToSave).subscribe();
+      
+      return this.js.saveJours(jourToSave).toPromise();
     });
-
+  
+    await Promise.all(savePromises); // Attend que toutes les sauvegardes soient terminées
+    await this.updateJours();
     this.messageLoading = 'Terminée';
     this.datetraitement = [];
     this.choixTypeJour = false;
-
+  
     this.loadingScreen = false;
-    window.location.reload()
+    //window.location.reload();
   }
+  
 }
 
 

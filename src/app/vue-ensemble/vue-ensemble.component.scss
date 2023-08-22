@@ -2,7 +2,7 @@
 
 /* Styles for the calendar container */
 .calendar {
-  width: 800px;
+  width: 95%;
   border: 1px solid #ddd;
   border-radius: 10px;
   font-family: Arial, sans-serif;
@@ -47,24 +47,25 @@
 
 /* Styles for the weekdays */
 .weekdays {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #f1f1f1;
-  font-weight: bold;
-  border-bottom: 1px solid #ddd;
+ display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  padding: 20px;
 }
 
 /* Styles for each weekday cell */
 .weekday {
   flex: 1;
+  display: block;
   text-align: center;
+  margin: 18px;
 }
 
 /* Styles for the days */
 .days {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   padding: 20px;
 }
 
@@ -78,14 +79,17 @@
   user-select: none;
   height: 60px;
   font-size: 20px;
-  border-radius: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  
+  
 }
 
 .day > p {
-  width: 22px;
-  display: block;
-  margin: auto;
-  text-align: center;
+  width: 100%;
+  display: inline-block;
+  text-align: left;
+  padding-left: 5px;
 }
 
 /* Styles for the selected day cell */
@@ -116,8 +120,107 @@
 
 .calendar-body{
   display: grid;
-grid-template-columns: repeat(5, 1fr);
-grid-template-rows: repeat(7, 1fr);
-grid-column-gap: 0px;
-grid-row-gap: 0px;
+  grid-template-columns: 0fr 1fr;
+grid-template-rows: 1fr;
 }
+
+
+
+.code-couleur{
+  text-align: center;
+}
+
+.code-couleur-details{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  width: auto;
+  height: 50px;
+  gap: 5px;
+  text-align: center;
+}
+
+
+.color-code{
+  height: 20px;
+  width: 20px;
+  display: flex;
+  vertical-align: middle;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+.present {
+  background-color: green;
+}
+
+.absent {
+  background-color: red;
+}
+
+
+.Conge-ss {
+  background-color: orange;
+}
+
+
+.demi-journe {
+  background-color: green;
+}
+
+/* Style pour le tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour l'en-tête du tableau */
+thead {
+  background-color: #f2f2f2;
+}
+
+thead th {
+  padding: 10px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Style pour les cellules du tableau */
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+/* Style pour les boutons de suppression */
+tbody button {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+tbody button:hover {
+  background-color: #d32f2f;
+}
+
+::ng-deep .nomCollaborateur{
+  background: red;
+    width: 25px;
+    aspect-ratio: auto;
+    border-radius: 50%;
+    padding: 8px;
+    color: white;
+display: inline-block;
+text-align: center;
+border: 1px solid black;
+margin: 5px;
+}
+

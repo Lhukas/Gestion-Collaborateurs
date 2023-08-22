@@ -32,6 +32,10 @@ import { environment } from 'src/environments/environment';
     }
 
 
+    getJoursByMois(mois : String){
+        return this.httpClient.get<Jours[]>(environment.API_URL+"/Jours/mois/"+mois)
+    }
+
 
 
   }

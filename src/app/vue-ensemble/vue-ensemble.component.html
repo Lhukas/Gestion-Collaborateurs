@@ -1,5 +1,5 @@
 <div class="container-employe">
-
+<h2>Vue d'ensemble</h2>
   <div class="calendar">
     <div class="calendar-header">
       <button class="btn btn-link" (click)="prevMonth()">&lt;</button>
@@ -13,14 +13,83 @@
       <div class="days">
         <div
           class="day"
-          *ngFor="let date of dates"
-        >
-          <p [attr.id]="getFormattedDateId(date)">{{ date.getDate() }}</p>
+          *ngFor="let date of dates">
+          <p [attr.id]="getFormattedDateId(date)">
+            {{ date.getDate() }}
+
+            
+
+
+
+
+
+          </p>
         </div>
       </div>
     </div>
+    <div class="code-couleur">
+      <h2>Code couleur</h2>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code present"></p></div>
+          <div class="color-signification"><p>Présent</p></div>
+        </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code absent"></p></div>
+          <div class="color-signification"><p>Absent</p></div>
+        </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code Conge-ss"></p></div>
+          <div class="color-signification"><p>Congé SS</p></div>
+        </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code demi-journe"></p></div>
+          <div class="color-signification"><p>Demi-journée</p></div>
+        </div>
+      </div>
+
+
+      </div>
+    
+
+
+
   </div>
       
       
-      
+     <h1>Historique du mois</h1>
+ 
+  <table>
+    <thead>
+      <tr>
+        <th>Jours formatté</th>
+        <th>Jours</th>
+        <th>Mois</th>
+        <th>Année</th>
+        <th>récap</th>
+      </tr>
+    </thead>
+    <tbody>
+  
+      <tr *ngFor="let jourItem of joursTableau; let i = index">
+        <td>{{ jourItem.idFormatLong}}</td>
+        <td>{{ jourItem.jour}}</td>
+        <td>{{ jourItem.mois}}</td>
+        <td>{{ jourItem.annee}}</td>
+        <td [attr.id]="jourItem.idFormatLong+'-tableau'"></td>
+      </tr>
+    </tbody>
+
+  </table> 
 </div>
+<app-loading *ngIf="loadingScreen" [message]="messageLoading"></app-loading>

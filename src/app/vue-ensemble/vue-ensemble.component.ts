@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { addMonths, subMonths, startOfWeek, format, eachDayOfInterval, addDays } from 'date-fns';
 
 import { CalendarView, CalendarEvent } from 'angular-calendar';
+import { Collaborateur } from '../models/collaborateur-modele';
+import { Jours } from '../models/jours-modele';
+import { ActivatedRoute } from '@angular/router';
+import { CollaborateursService } from '../services/collaborateurs.service';
+import { JoursServices } from '../services/jours.services';
+
+
+
 @Component({
   selector: 'app-vue-ensemble',
   templateUrl: './vue-ensemble.component.html',
@@ -12,50 +20,78 @@ export class VueEnsembleComponent implements OnInit {
   weekdays!: string[];
   weeks: Date[][] = [];
   selectedDate!: Date;
-
   dates!: Date[];
+  currentMois !: String;
+  jours !: Jours[]
+  joursTableau !: Jours[]
 
-  ngOnInit(): void {
-    this.weekdays = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+  IDjoursDOM !: String;
+  nbCollaborateursJours : number = 0
+
+  personneEnConge : Collaborateur[] = [];
+  messageLoading!: string;
+  loadingScreen!: boolean;
+
+  constructor(
+    private js: JoursServices,
+    private cs : CollaborateursService
+  ) {}
+
+  
+  async ngOnInit(): Promise<void> {
+    this.weekdays = [ 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam','Dim'];
     this.selectedDate = new Date();
     this.generateCalendar(this.selectedDate);
+
+    this.refreshConge()
+
+    
   }
-  generateCalendar(date: Date): void {
-    this.currentMonth = date.toLocaleString('default', {
-      month: 'long',
-      year: 'numeric',
-    });
+generateCalendar(date: Date): void {
+  this.currentMonth = date.toLocaleString('default', {
+    month: 'long',
+    year: 'numeric',
+  });
 
-    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const daysInMonth = lastDayOfMonth.getDate();
+  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  const daysInMonth = lastDayOfMonth.getDate();
 
-    const firstDayOfWeek = firstDayOfMonth.getDay();
-
-    this.dates = [];
-
-    // Add previous month's days to fill the first week
-    for (let i = firstDayOfWeek; i > 0; i--) {
-      const prevDate = new Date(firstDayOfMonth);
-      prevDate.setDate(prevDate.getDate() - i);
-      this.dates.push(prevDate);
-    }
-
-    // Add current month's days
-    for (let i = 1; i <= daysInMonth; i++) {
-      const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-      this.dates.push(currentDate);
-    }
+  // Adjusting the first day of the week to be Monday (1)
+  let firstDayOfWeek = firstDayOfMonth.getDay();
+  if (firstDayOfWeek === 0) {
+    firstDayOfWeek = 6; // Sunday, adjust to the last day of the previous week
+  } else {
+    firstDayOfWeek--; // Adjusting to Monday-based indexing
   }
+
+  this.dates = [];
+
+  // Add previous month's days to fill the first week
+  for (let i = firstDayOfWeek; i > 0; i--) {
+    const prevDate = new Date(firstDayOfMonth);
+    prevDate.setDate(prevDate.getDate() - i);
+    this.dates.push(prevDate);
+  }
+
+  // Add current month's days
+  for (let i = 1; i <= daysInMonth; i++) {
+    const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
+    this.dates.push(currentDate);
+  }
+}
+
 
   prevMonth(): void {
     this.selectedDate = subMonths(this.selectedDate, 1);
     this.generateCalendar(this.selectedDate);
+    this.refreshConge()
   }
 
   nextMonth(): void {
     this.selectedDate = addMonths(this.selectedDate, 1);
     this.generateCalendar(this.selectedDate);
+    this.refreshConge()
   }
 
 
@@ -68,6 +104,78 @@ export class VueEnsembleComponent implements OnInit {
         : (date.getMonth() + 1).toString();
     const year = date.getFullYear().toString();
     return day + month + year;
+  }
+
+
+
+
+
+
+  async refreshConge(){
+
+
+    this.loadingScreen = true;
+    this.messageLoading = 'chargement en cours....';
+
+
+    this.currentMois =
+    this.selectedDate.getMonth() < 9
+      ? '0' + (this.selectedDate.getMonth() + 1)
+      : (this.selectedDate.getMonth() + 1).toString();
+
+    this.jours = await this.js
+      .getJoursByMois(this.currentMois)
+      .toPromise();
+      
+    this.jours.sort((a, b) => parseInt(a.idFormatLong) - parseInt(b.idFormatLong));
+
+    this.joursTableau = this.jours.filter((item, index, self) =>
+        index === self.findIndex((t) => t.idFormatLong === item.idFormatLong)
+);
+
+console.log(this.jours)
+
+    this.IDjoursDOM = this.jours[0].idFormatLong
+   
+    const savePromises = this.jours.map(async (element) => {
+
+      const collaborateur = await this.cs.getCollaborateur(element.id_collaborateurs!).toPromise();
+ 
+
+      if (this.IDjoursDOM == element.idFormatLong) {
+        this.nbCollaborateursJours++;
+        console.log("teste 1 -------------------------------");
+        console.log("nb : "+this.nbCollaborateursJours);
+
+      } else {
+        this.IDjoursDOM = element.idFormatLong;
+        this.nbCollaborateursJours = 1;
+
+      }
+
+
+
+      if (this.nbCollaborateursJours < 5) {
+
+        document.getElementById(element.idFormatLong.toString())!.innerHTML += '<p class="nomCollaborateur present">' + collaborateur.code_collaborateur + "</p>";
+        console.log( document.getElementById(element.idFormatLong.toString())?.getElementsByTagName("p"))
+       
+        document.getElementById(element.idFormatLong.toString()+"-tableau")!.innerHTML += '<p class="nomCollaborateur">' + collaborateur.code_collaborateur + '</p>';
+
+      }
+      else if (this.nbCollaborateursJours == 5) {
+        //continuer a mettre les collaborateurs dans le tableau
+      }
+
+
+
+    });
+
+    await Promise.all(savePromises);
+
+    this.messageLoading = 'Terminée';
+    this.loadingScreen = false;
+
   }
 }
 

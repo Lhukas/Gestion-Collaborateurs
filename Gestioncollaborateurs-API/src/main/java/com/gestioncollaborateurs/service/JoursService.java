@@ -43,7 +43,7 @@ public class JoursService {
 		 
 		 jour.setIdFormatLong();
 		 
-		 Jours joursExistant = jr.findJour(jour.getIdFormatLong());
+		 Jours joursExistant = jr.findJour(jour.getIdFormatLong(), jour.getId_collaborateurs());
 		  
 		  
 		  if(joursExistant != null) {

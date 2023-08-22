@@ -57,4 +57,11 @@ public class JoursController {
     public List<Jours> getJoursByMoisAndId(@PathVariable Long id,@PathVariable String mois) {
         return js.getJoursByMoisAndId(id,mois);
     }
+	
+	
+	@GetMapping("/Jours/mois/{mois}")
+	public List<Jours> getJoursByMonth(@PathVariable String mois){
+		return js.getJoursByMois(mois);
+	}
+	
 }

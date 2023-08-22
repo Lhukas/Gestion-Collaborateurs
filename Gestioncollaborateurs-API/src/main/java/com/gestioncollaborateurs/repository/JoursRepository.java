@@ -31,8 +31,8 @@ public interface JoursRepository extends CrudRepository <Jours, Long>{
 	
 	
 	
-	@Query("SELECT j FROM Jours j WHERE j.idFormatLong = :IDformatLong")
-	Jours findJour(@Param("IDformatLong") String jour);
+	@Query("SELECT j FROM Jours j WHERE j.idFormatLong = :IDformatLong AND j.id_collaborateurs = :IDcollaborateur")
+	Jours findJour(@Param("IDformatLong") String jour, @Param("IDcollaborateur") Long long1);
 	
 	@Modifying
 	@Query("DELETE FROM Jours WHERE id_collaborateurs = :id")
