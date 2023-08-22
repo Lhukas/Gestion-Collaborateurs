@@ -1,0 +1,26 @@
+<div class="container-employe">
+
+  <div class="calendar">
+    <div class="calendar-header">
+      <button class="btn btn-link" (click)="prevMonth()">&lt;</button>
+      <span>{{ currentMonth }}</span>
+      <button class="btn btn-link" (click)="nextMonth()">&gt;</button>
+    </div>
+    <div class="calendar-body">
+      <div class="weekdays">
+        <span class="weekday" *ngFor="let day of weekdays">{{ day }}</span>
+      </div>
+      <div class="days">
+        <div
+          class="day"
+          *ngFor="let date of dates"
+        >
+          <p [attr.id]="getFormattedDateId(date)">{{ date.getDate() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+      
+      
+</div>

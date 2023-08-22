@@ -7,6 +7,7 @@
       <tr>
         <th>Nom</th>
         <th>Prénom</th>
+        <td>Code collaborateur</td>
         <th>Action</th>
       </tr>
     </thead>
@@ -14,6 +15,7 @@
       <tr *ngFor="let collaborateurItem of collaborateurs; let i = index">
         <td>{{ collaborateurItem.nom | uppercase}}</td>
         <td>{{ collaborateurItem.prenom | titlecase}}</td>
+        <td>{{ collaborateurItem.code_collaborateur | titlecase}}</td>
         <td>
           <button (click)="supprimerCollaborateur(collaborateurItem.collaborateur_id)">Supprimer</button>
         </td>
@@ -35,6 +37,10 @@
     <div>
       <label for="prenom">Prénom:</label>
       <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" >
+    </div>
+    <div>
+      <label for="prenom">Code collaborateur:</label>
+      <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.code_collaborateur" >
     </div>
     <div>
       <button [disabled]="addForm.invalid" type="submit">Enregistrer</button>

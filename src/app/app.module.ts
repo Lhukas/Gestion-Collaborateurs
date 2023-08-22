@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CollaborateursComponent } from './collaborateurs/collaborateurs.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
+import { VueEnsembleComponent } from './vue-ensemble/vue-ensemble.component';
+import { CalendarModule } from 'angular-calendar';
 
 
 
@@ -28,6 +30,8 @@ import { LoadingComponent } from './loading/loading.component';
     CalendrierEmployeComponent,
     CollaborateursComponent,
     LoadingComponent,
+    VueEnsembleComponent,
+    
     
    
   ],
@@ -37,7 +41,8 @@ import { LoadingComponent } from './loading/loading.component';
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CalendarModule
   ],
   //FR
   providers: [{ provide : LOCALE_ID, useValue : 'fr-FR'}],

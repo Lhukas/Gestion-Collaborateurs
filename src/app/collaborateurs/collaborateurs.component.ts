@@ -16,7 +16,7 @@ export class CollaborateursComponent implements OnInit {
 
   collaborateurs !: Collaborateur[];
   
-  newCollaborateur : Collaborateur = new Collaborateur(null,'','','')
+  newCollaborateur : Collaborateur = new Collaborateur(null,'','','','')
 
   constructor(private cs : CollaborateursService) { }
 
@@ -64,7 +64,7 @@ onAddCollaborateur() {
     (response: Collaborateur) =>{
       console.log(response)
       this.getAllCollaborateurs()
-      this.newCollaborateur  = new Collaborateur(null,'','','')
+      this.newCollaborateur  = new Collaborateur(null,'','','','')
     },
     (error) => {
       console.log(error.message)

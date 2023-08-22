@@ -25,6 +25,18 @@ public class Collaborateurs {
 	
 	
 	private String ticket_resto;
+	
+	private String code_collaborateur;
+
+
+	public String getCode_collaborateur() {
+		return code_collaborateur;
+	}
+
+
+	public void setCode_collaborateur(String code_collaborateur) {
+		this.code_collaborateur = code_collaborateur;
+	}
 
 
 	public Long getCollaborateur_id() {
