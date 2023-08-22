@@ -152,8 +152,8 @@ grid-template-rows: 1fr;
 }
 
 
-.present {
-  background-color: green;
+::ng-deep .present {
+  background-color: green !important;
 }
 
 .absent {
