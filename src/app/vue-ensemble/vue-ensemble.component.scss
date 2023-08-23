@@ -79,7 +79,6 @@
   user-select: none;
   height: 60px;
   font-size: 20px;
-  border: 1px solid black;
   border-collapse: collapse;
   
   
@@ -152,23 +151,9 @@ grid-template-rows: 1fr;
 }
 
 
-::ng-deep .present {
-  background-color: green !important;
-}
-
-.absent {
-  background-color: red;
-}
 
 
-.Conge-ss {
-  background-color: orange;
-}
 
-
-.demi-journe {
-  background-color: green;
-}
 
 /* Style pour le tableau */
 table {
@@ -211,16 +196,32 @@ tbody button:hover {
   background-color: #d32f2f;
 }
 
-::ng-deep .nomCollaborateur{
-  background: red;
-    width: 25px;
-    aspect-ratio: auto;
-    border-radius: 50%;
-    padding: 8px;
-    color: white;
-display: inline-block;
-text-align: center;
-border: 1px solid black;
-margin: 5px;
+::ng-deep /* Style pour le nom du collaborateur */
+/* Style pour le nom du collaborateur */
+.nomCollaborateur {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 10px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase; /* Convertir le texte en majuscules */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  margin: 5px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Effets de transition */
 }
+
+
+::ng-deep 
+.more{
+  background-color: #007bff;
+}
+
+
+
+
 

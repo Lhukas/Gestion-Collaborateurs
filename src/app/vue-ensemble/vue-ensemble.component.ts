@@ -7,6 +7,7 @@ import { Jours } from '../models/jours-modele';
 import { ActivatedRoute } from '@angular/router';
 import { CollaborateursService } from '../services/collaborateurs.service';
 import { JoursServices } from '../services/jours.services';
+import { LowerCasePipe } from '@angular/common';
 
 
 
@@ -125,57 +126,55 @@ generateCalendar(date: Date): void {
 
     this.jours = await this.js
       .getJoursByMois(this.currentMois)
-      .toPromise();
+      .toPromise()
+
+      this.joursTableau = []
       
+      if(this.jours.length != 0){
     this.jours.sort((a, b) => parseInt(a.idFormatLong) - parseInt(b.idFormatLong));
 
     this.joursTableau = this.jours.filter((item, index, self) =>
         index === self.findIndex((t) => t.idFormatLong === item.idFormatLong)
 );
 
-console.log(this.jours)
 
-    this.IDjoursDOM = this.jours[0].idFormatLong
-   
-    const savePromises = this.jours.map(async (element) => {
+this.IDjoursDOM = this.jours[0].idFormatLong;
 
-      const collaborateur = await this.cs.getCollaborateur(element.id_collaborateurs!).toPromise();
- 
+const savePromises = this.jours.map(async (element) => {
 
-      if (this.IDjoursDOM == element.idFormatLong) {
-        this.nbCollaborateursJours++;
-        console.log("teste 1 -------------------------------");
-        console.log("nb : "+this.nbCollaborateursJours);
+  
+  await this.cs.getCollaborateur(element.id_collaborateurs!).toPromise()
+  .then((collaborateur) => {
 
-      } else {
-        this.IDjoursDOM = element.idFormatLong;
-        this.nbCollaborateursJours = 1;
+  if (this.IDjoursDOM == element.idFormatLong) {
+    this.nbCollaborateursJours++;
+  } else {
+    this.IDjoursDOM = element.idFormatLong;
+    this.nbCollaborateursJours = 1;
+  }
 
-      }
+  const elementIdString = element.idFormatLong.toString();
+  const elementIdTableauString = elementIdString + "-tableau";
+  const collaborateurHtml = '<p class="nomCollaborateur ' + element.type + '">' + collaborateur.code_collaborateur + '</p>';
 
+  if (this.nbCollaborateursJours < 3) {
+    document.getElementById(elementIdString)!.innerHTML += collaborateurHtml;
+  } else if (this.nbCollaborateursJours == 3) {
+    document.getElementById(elementIdString)!.innerHTML += '<p class="nomCollaborateur more">+</p>';
+  }
 
+  document.getElementById(elementIdTableauString)!.innerHTML += collaborateurHtml;
+  })
+});
 
-      if (this.nbCollaborateursJours < 5) {
-
-        document.getElementById(element.idFormatLong.toString())!.innerHTML += '<p class="nomCollaborateur present">' + collaborateur.code_collaborateur + "</p>";
-        console.log( document.getElementById(element.idFormatLong.toString())?.getElementsByTagName("p"))
-       
-        document.getElementById(element.idFormatLong.toString()+"-tableau")!.innerHTML += '<p class="nomCollaborateur">' + collaborateur.code_collaborateur + '</p>';
-
-      }
-      else if (this.nbCollaborateursJours == 5) {
-        //continuer a mettre les collaborateurs dans le tableau
-      }
+await Promise.all(savePromises);
 
 
 
-    });
-
-    await Promise.all(savePromises);
-
-    this.messageLoading = 'Terminée';
-    this.loadingScreen = false;
 
   }
+  this.messageLoading = 'Terminée';
+this.loadingScreen = false;
+}
 }
 

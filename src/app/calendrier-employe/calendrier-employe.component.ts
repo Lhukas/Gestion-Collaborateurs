@@ -84,30 +84,8 @@ export class CalendrierEmployeComponent implements OnInit {
       }
       
       const jourDom = document.getElementById(jour.idFormatLong);
-      switch (jour.type) {
-        case 'CSS':
-          jourDom!.style.backgroundColor = 'black';
-          jourDom!.style.color = 'white';
-          break;
-        case 'CP':
-          jourDom!.style.backgroundColor = 'orange';
-          jourDom!.style.color = 'black';
-          break;
-        case 'PRESENT':
-          jourDom!.style.backgroundColor = 'green';
-          jourDom!.style.color = 'white';
-          break;
-        case 'ABS':
-          jourDom!.style.backgroundColor = 'red';
-          jourDom!.style.color = 'white';
-          break;
-        case 'ECOLE':
-          jourDom!.style.backgroundColor = 'red';
-          jourDom!.style.color = 'white';
-          break;
-        default:
-          break;
-      }
+      jourDom!.className = jour.type
+      
     });
   }
 
@@ -162,12 +140,10 @@ export class CalendrierEmployeComponent implements OnInit {
   }
 
   isSelected(id: string): void {
-    document.getElementById(id)!.style.backgroundColor = '#1A598D';
-    document.getElementById(id)!.style.color = 'white';
+    document.getElementById(id)!.className = 'selected';
   }
   notSelected(id: string): void {
-    document.getElementById(id)!.style.backgroundColor = 'transparent';
-    document.getElementById(id)!.style.color = 'black';
+    document.getElementById(id)!.className = '';
   }
 
   selectDate(date: Date): void {
@@ -248,8 +224,7 @@ export class CalendrierEmployeComponent implements OnInit {
         element
       );
       
-      console.log("jours :" +  element.slice(0, 2))
-      console.log("mois :" +  element.slice(3, 4))
+      
       
       return this.js.saveJours(jourToSave).toPromise();
     });

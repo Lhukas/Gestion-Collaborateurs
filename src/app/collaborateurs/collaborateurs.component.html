@@ -15,7 +15,7 @@
       <tr *ngFor="let collaborateurItem of collaborateurs; let i = index">
         <td>{{ collaborateurItem.nom | uppercase}}</td>
         <td>{{ collaborateurItem.prenom | titlecase}}</td>
-        <td>{{ collaborateurItem.code_collaborateur | titlecase}}</td>
+        <td>{{ collaborateurItem.code_collaborateur | uppercase}}</td>
         <td>
           <button (click)="supprimerCollaborateur(collaborateurItem.collaborateur_id)">Supprimer</button>
         </td>
