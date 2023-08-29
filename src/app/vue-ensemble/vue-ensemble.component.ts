@@ -138,33 +138,37 @@ generateCalendar(date: Date): void {
 );
 
 
+
+
+
 this.IDjoursDOM = this.jours[0].idFormatLong;
+var result = 0 ;
 
 const savePromises = this.jours.map(async (element) => {
 
   
   await this.cs.getCollaborateur(element.id_collaborateurs!).toPromise()
-  .then((collaborateur) => {
+  .then(async (collaborateur) => {
 
-  if (this.IDjoursDOM == element.idFormatLong) {
-    this.nbCollaborateursJours++;
-  } else {
-    this.IDjoursDOM = element.idFormatLong;
-    this.nbCollaborateursJours = 1;
-  }
-
+  
   const elementIdString = element.idFormatLong.toString();
   const elementIdTableauString = elementIdString + "-tableau";
   const collaborateurHtml = '<p class="nomCollaborateur ' + element.type + '">' + collaborateur.code_collaborateur + '</p>';
 
-  if (this.nbCollaborateursJours < 3) {
-    document.getElementById(elementIdString)!.innerHTML += collaborateurHtml;
-  } else if (this.nbCollaborateursJours == 3) {
-    document.getElementById(elementIdString)!.innerHTML += '<p class="nomCollaborateur more">+</p>';
-  }
 
+  document.getElementById(elementIdString)!.innerHTML += collaborateurHtml;
+ 
+  if(document.getElementById(elementIdString)!.querySelectorAll('p').length == 3){
+    document.getElementById(elementIdString)!.innerHTML = parseInt(element.jour) + '<p class="nomCollaborateur more">3+</p>'
+  }
+  
+
+  
   document.getElementById(elementIdTableauString)!.innerHTML += collaborateurHtml;
+  
   })
+
+ 
 });
 
 await Promise.all(savePromises);
