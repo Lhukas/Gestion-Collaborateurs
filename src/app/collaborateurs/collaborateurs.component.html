@@ -5,17 +5,21 @@
   <table>
     <thead>
       <tr>
+        <th>Matricule</th>
         <th>Nom</th>
         <th>Prénom</th>
-        <td>Code collaborateur</td>
+        <th>Trigramme</th>
+        <th>Groupe</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let collaborateurItem of collaborateurs; let i = index">
+        <td>{{ collaborateurItem.matricule | uppercase}}</td>
         <td>{{ collaborateurItem.nom | uppercase}}</td>
         <td>{{ collaborateurItem.prenom | titlecase}}</td>
-        <td>{{ collaborateurItem.code_collaborateur | uppercase}}</td>
+        <td>{{ collaborateurItem.trigramme | uppercase}}</td>
+        <td>{{ collaborateurItem.groupe | uppercase}}</td>
         <td>
           <button (click)="supprimerCollaborateur(collaborateurItem.collaborateur_id)">Supprimer</button>
         </td>
@@ -39,9 +43,31 @@
       <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" >
     </div>
     <div>
-      <label for="prenom">Code collaborateur:</label>
-      <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.code_collaborateur" >
+      <label for="prenom">Trigramme:</label>
+      <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.trigramme" >
     </div>
+
+    <div>
+      <label for="prenom">Matricule :</label>
+      <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.matricule" >
+    </div>
+
+
+    <div>
+    <label for="prenom">Groupe :</label>
+    <select [(ngModel)]="newCollaborateur.groupe" name="options">
+      <option value="CONSULTING">CONSULTING</option>
+      <option value="AGENCE">AGENCE</option>
+    </select>
+</div>
+
+
+<div>
+  <label for="prenom">Mot de passe :</label>
+  <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.mdp" >
+</div>
+
+
     <div>
       <button [disabled]="addForm.invalid" type="submit">Enregistrer</button>
     </div>

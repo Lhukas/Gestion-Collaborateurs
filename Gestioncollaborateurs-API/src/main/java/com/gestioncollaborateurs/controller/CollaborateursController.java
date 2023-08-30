@@ -58,6 +58,12 @@ public class CollaborateursController {
 	}
 	
 	
+	@GetMapping("/Connexion/{trigramme}/{mdp}")
+	public Collaborateurs ConnexionCollaborateur(@PathVariable String trigramme, @PathVariable String mdp){
+		return cs.ConnexionCollaborateur(trigramme,mdp);
+	}
+	
+	
 	
 	
 

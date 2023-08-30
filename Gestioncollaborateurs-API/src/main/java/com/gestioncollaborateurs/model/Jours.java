@@ -37,6 +37,8 @@ public class Jours {
 	private String eligible_tr;
 	
 	private String idFormatLong;
+	
+	private Boolean valide;
 
 	
 	
@@ -131,6 +133,16 @@ public class Jours {
 	
 		
 		this.idFormatLong = this.jour + this.mois + this.annee;
+	}
+
+
+	public Boolean getValide() {
+		return valide;
+	}
+
+
+	public void setValide(Boolean valide) {
+		this.valide = valide;
 	}
 	
 	

@@ -26,16 +26,49 @@ public class Collaborateurs {
 	
 	private String ticket_resto;
 	
-	private String code_collaborateur;
+	private String matricule;
+	
+	private String trigramme;
+	
+	private String groupe;
+	
+	private Boolean admin;
+	
+	
+	private String mdp;
+	
 
 
-	public String getCode_collaborateur() {
-		return code_collaborateur;
+
+
+
+	public String getMatricule() {
+		return matricule;
 	}
 
 
-	public void setCode_collaborateur(String code_collaborateur) {
-		this.code_collaborateur = code_collaborateur;
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+
+	public String getTrigramme() {
+		return trigramme;
+	}
+
+
+	public void setTrigramme(String trigramme) {
+		this.trigramme = trigramme;
+	}
+
+
+	public String getGroupe() {
+		return groupe;
+	}
+
+
+	public void setGroupe(String groupe) {
+		this.groupe = groupe;
 	}
 
 
@@ -83,6 +116,26 @@ public class Collaborateurs {
 	public String toString() {
 		return "Collaborateurs [collaborateur_id=" + collaborateur_id + ", prenom=" + prenom + ", nom=" + nom
 				+ ", ticket_resto=" + ticket_resto + "]";
+	}
+
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+
+	public String getMdp() {
+		return mdp;
+	}
+
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
 	}
 	
 	

@@ -4,15 +4,18 @@ import { CalendrierEmployeComponent } from "./calendrier-employe/calendrier-empl
 import { CollaborateursComponent } from "./collaborateurs/collaborateurs.component";
 import { ListEmployeComponent } from "./list-employe/list-employe.component";
 import { VueEnsembleComponent } from "./vue-ensemble/vue-ensemble.component";
+import { PageConnexionComponent } from "./page-connexion/page-connexion.component";
+import { AppComponent } from "./app.component";
+
 
 const routes : Routes = [
 
-{ path: '', component : ListEmployeComponent },
-{ path: 'Acceuil', component : ListEmployeComponent },
-{ path: 'Calendrier/:id', component : CalendrierEmployeComponent },
-{ path: 'Collaborateur', component : CollaborateursComponent },
-{ path: 'Vue-ensemble', component : VueEnsembleComponent },
-];
+    { path: '', component : AppComponent },
+    { path: 'Acceuil', component : ListEmployeComponent },
+    { path: 'Calendrier/:id', component : CalendrierEmployeComponent },
+    { path: 'Collaborateur', component : CollaborateursComponent },
+    { path: 'Vue-ensemble', component : VueEnsembleComponent },
+    ];
 
 
 @NgModule({

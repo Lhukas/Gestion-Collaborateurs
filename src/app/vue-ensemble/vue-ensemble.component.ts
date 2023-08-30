@@ -153,7 +153,7 @@ const savePromises = this.jours.map(async (element) => {
   
   const elementIdString = element.idFormatLong.toString();
   const elementIdTableauString = elementIdString + "-tableau";
-  const collaborateurHtml = '<p class="nomCollaborateur ' + element.type + '">' + collaborateur.code_collaborateur + '</p>';
+  const collaborateurHtml = '<p class="nomCollaborateur ' + element.type + '">' + collaborateur.trigramme + '</p>';
 
 
   document.getElementById(elementIdString)!.innerHTML += collaborateurHtml;

@@ -57,4 +57,17 @@ public class CollaborateursService {
 		
 	}
 
+
+	public Collaborateurs ConnexionCollaborateur(String trigramme, String mdp) {
+		
+		Collaborateurs collaborateur = cr.findByTrigramme(trigramme);
+		
+		if(collaborateur.getMdp().equals(mdp)) {
+			return collaborateur;
+		}
+		else {
+			return null;
+		}
+	}
+
 }

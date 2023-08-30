@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { VueEnsembleComponent } from './vue-ensemble/vue-ensemble.component';
 import { CalendarModule } from 'angular-calendar';
+import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 
 
 
@@ -31,6 +32,8 @@ import { CalendarModule } from 'angular-calendar';
     CollaborateursComponent,
     LoadingComponent,
     VueEnsembleComponent,
+    PageConnexionComponent,
+    
     
     
    

@@ -6,7 +6,11 @@ export class Collaborateur {
         public nom : string,
         public prenom : string,
         public ticket_resto : string, 
-        public code_collaborateur : string,
+        public trigramme : string,
+        public matricule : string,
+        public groupe : string,
+        public admin : boolean,
+        public mdp : string
         ){}
 
 }

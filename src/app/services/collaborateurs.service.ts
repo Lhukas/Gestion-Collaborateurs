@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,6 +27,11 @@ export class CollaborateursService {
 
   saveCollaborateurs(collaborateurToSave : Collaborateur){
     return this.httpClient.post<Collaborateur>(environment.API_URL+"/Collaborateurs/save", collaborateurToSave);
+  }
+
+
+  connexion(trigramme : string, mdp : string){
+    return this.httpClient.get<Collaborateur>(environment.API_URL+"/Connexion/"+ trigramme +"/"+mdp)
   }
 
 
