@@ -40,6 +40,7 @@ messageLoading: string = "connexion en cours...";
 
    if(collaborateurTrouve == null){
     alert("aucune personne trouvé")
+    this.loadingScreen = false
    }
    else{
     sessionStorage.setItem("ADMIN", collaborateurTrouve.admin.toString());
