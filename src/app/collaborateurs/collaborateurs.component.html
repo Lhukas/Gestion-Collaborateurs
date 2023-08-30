@@ -1,3 +1,4 @@
+<app-menu-nav></app-menu-nav>
 <div class="container-employe">
 
 
@@ -10,6 +11,7 @@
         <th>Prénom</th>
         <th>Trigramme</th>
         <th>Groupe</th>
+        <th>Admin</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -20,6 +22,7 @@
         <td>{{ collaborateurItem.prenom | titlecase}}</td>
         <td>{{ collaborateurItem.trigramme | uppercase}}</td>
         <td>{{ collaborateurItem.groupe | uppercase}}</td>
+        <td>{{ collaborateurItem.admin.toString()| lowercase}}</td>
         <td>
           <button (click)="supprimerCollaborateur(collaborateurItem.collaborateur_id)">Supprimer</button>
         </td>
@@ -59,6 +62,15 @@
       <option value="CONSULTING">CONSULTING</option>
       <option value="AGENCE">AGENCE</option>
     </select>
+</div>
+
+
+<div>
+  <label for="prenom">Admin :</label>
+  <select [(ngModel)]="newCollaborateur.admin" name="options">
+    <option value="TRUE" >OUI</option>
+    <option value="FALSE" [attr.selected]="true" >NON</option>
+  </select>
 </div>
 
 

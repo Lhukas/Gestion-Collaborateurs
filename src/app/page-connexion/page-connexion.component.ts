@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CollaborateursService } from '../services/collaborateurs.service';
 import { Router } from '@angular/router';
+import { Collaborateur } from '../models/collaborateur-modele';
 
 
 
@@ -35,13 +36,21 @@ messageLoading: string = "connexion en cours...";
     this.messageLoading = " connexion en cours"
 
 
-   const test = await this.cs.connexion(this.trigramme, this.mdp).toPromise()
+   const collaborateurTrouve : Collaborateur = await this.cs.connexion(this.trigramme, this.mdp).toPromise()
+
+   if(collaborateurTrouve == null){
+    alert("aucune personne trouvé")
+   }
+   else{
+    sessionStorage.setItem("ADMIN", collaborateurTrouve.admin.toString());
+
+    this.router.navigate(["/Acceuil"]);
+   }
+
+ 
 
 
-   console.log(test)
-
-
-   // this.router.navigate(["/Acceuil"]);
+   
 
    
     }

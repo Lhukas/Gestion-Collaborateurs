@@ -10,7 +10,8 @@ import { AppComponent } from "./app.component";
 
 const routes : Routes = [
 
-    { path: '', component : AppComponent },
+    { path: '', redirectTo: 'Connexion', pathMatch: 'full' },
+    { path: 'Connexion', component : PageConnexionComponent },
     { path: 'Acceuil', component : ListEmployeComponent },
     { path: 'Calendrier/:id', component : CalendrierEmployeComponent },
     { path: 'Collaborateur', component : CollaborateursComponent },
