@@ -126,9 +126,9 @@ public class Jours {
 		if(Integer.parseInt(this.jour)< 10) {
 			setJour("0"+this.jour);
 		}*/
-		
-		if(Integer.parseInt(this.mois)< 10) {
-			setMois("0"+this.mois);
+		long moisInteger = Integer.parseInt(this.mois);
+		if(moisInteger< 10) {
+			setMois("0"+moisInteger);
 		}
 	
 		

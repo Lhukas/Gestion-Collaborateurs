@@ -31,15 +31,14 @@ export class MenuNavComponent implements OnInit {
           break;
       
         default:
-          this.changePath(currentRoute);
+          this.changePath(currentRoute.split('/')[0]);
           break;
       }
     } 
 
-    
-    this.admin = sessionStorage.getItem("ADMIN") == null;
-
-
+   
+    this.admin = sessionStorage.getItem("ADMIN") == "true";
+  
 
 
 

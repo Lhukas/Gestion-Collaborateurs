@@ -43,9 +43,15 @@ messageLoading: string = "connexion en cours...";
     this.loadingScreen = false
    }
    else{
-    sessionStorage.setItem("ADMIN", collaborateurTrouve.admin.toString());
 
-    this.router.navigate(["/Acceuil"]);
+    if(collaborateurTrouve.admin == true){
+    sessionStorage.setItem("ADMIN", collaborateurTrouve.admin.toString());
+    this.router.navigate(["/Dashboard-admin"]);
+    }else{
+    sessionStorage.setItem("ADMIN", collaborateurTrouve.admin.toString());
+    this.router.navigate(["/Dashboard-Collaborateur"]);
+    }
+    sessionStorage.setItem("ID", collaborateurTrouve.collaborateur_id!.toString());
    }
 
  

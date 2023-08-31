@@ -9,6 +9,7 @@
         <th>Matricule</th>
         <th>Nom</th>
         <th>Prénom</th>
+        <th>Mail</th>
         <th>Trigramme</th>
         <th>Groupe</th>
         <th>Admin</th>
@@ -20,6 +21,7 @@
         <td>{{ collaborateurItem.matricule | uppercase}}</td>
         <td>{{ collaborateurItem.nom | uppercase}}</td>
         <td>{{ collaborateurItem.prenom | titlecase}}</td>
+        <td>{{ collaborateurItem.mail | lowercase}}</td>
         <td>{{ collaborateurItem.trigramme | uppercase}}</td>
         <td>{{ collaborateurItem.groupe | uppercase}}</td>
         <td>{{ collaborateurItem.admin.toString()| lowercase}}</td>
@@ -45,19 +47,26 @@
       <label for="prenom">Prénom:</label>
       <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" >
     </div>
-    <div>
-      <label for="prenom">Trigramme:</label>
-      <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.trigramme" >
-    </div>
 
     <div>
-      <label for="prenom">Matricule :</label>
-      <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.matricule" >
+      <label for="mail">Mail :</label>
+      <input type="text" id="mail" name="mail" [(ngModel)]="newCollaborateur.mail" >
     </div>
 
 
     <div>
-    <label for="prenom">Groupe :</label>
+      <label for="trigramme">Trigramme:</label>
+      <input type="text" id="trigramme" name="trigramme" [(ngModel)]="newCollaborateur.trigramme" >
+    </div>
+
+    <div>
+      <label for="matricule">Matricule :</label>
+      <input type="text" id="matricule" name="matricule" [(ngModel)]="newCollaborateur.matricule" >
+    </div>
+
+
+    <div>
+    <label for="groupe">Groupe :</label>
     <select [(ngModel)]="newCollaborateur.groupe" name="options">
       <option value="CONSULTING">CONSULTING</option>
       <option value="AGENCE">AGENCE</option>
@@ -66,7 +75,7 @@
 
 
 <div>
-  <label for="prenom">Admin :</label>
+  <label for="admin">Admin :</label>
   <select [(ngModel)]="newCollaborateur.admin" name="options">
     <option value="TRUE" >OUI</option>
     <option value="FALSE" [attr.selected]="true" >NON</option>
@@ -75,8 +84,8 @@
 
 
 <div>
-  <label for="prenom">Mot de passe :</label>
-  <input type="text" id="code_collaborateur" name="code_collaborateur" [(ngModel)]="newCollaborateur.mdp" >
+  <label for="mdp">Mot de passe :</label>
+  <input type="text" id="mdp" name="mdp" [(ngModel)]="newCollaborateur.mdp" >
 </div>
 
 

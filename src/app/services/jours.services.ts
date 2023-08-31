@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
     }
 
     getJoursById(id : number){
-        return this.httpClient.get<Jours[]>(environment.API_URL+"/Jours/"+id)
+        return this.httpClient.get<Jours>(environment.API_URL+"/Jours/"+id)
     }
 
     saveJours(JoursToSave : Jours){

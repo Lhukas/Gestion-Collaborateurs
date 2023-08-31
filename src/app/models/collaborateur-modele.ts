@@ -10,7 +10,8 @@ export class Collaborateur {
         public matricule : string,
         public groupe : string,
         public admin : boolean,
-        public mdp : string
+        public mdp : string,
+        public mail : string
         ){}
 
 }

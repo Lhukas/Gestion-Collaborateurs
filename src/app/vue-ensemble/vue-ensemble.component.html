@@ -1,95 +1,112 @@
 <app-menu-nav></app-menu-nav>
 <div class="container-employe">
 <h2>Vue d'ensemble</h2>
+
+
+
   <div class="calendar">
     <div class="calendar-header">
       <button class="btn btn-link" (click)="prevMonth()">&lt;</button>
       <span>{{ currentMonth }}</span>
       <button class="btn btn-link" (click)="nextMonth()">&gt;</button>
     </div>
-    <div class="calendar-body">
-      <div class="weekdays">
-        <span class="weekday" *ngFor="let day of weekdays">{{ day }}</span>
-      </div>
-      <div class="days">
-        <div
-          class="day"
-          *ngFor="let date of dates">
-          <p [attr.id]="getFormattedDateId(date)">
-            {{ date.getDate() }}
 
-            
-
+    <table class="calendar-table">
+      <tr class="weekdays">
+        <td></td>
+        <ng-container *ngFor="let day of dates">
+          <td class="weekday">
+            {{ weekdays[day.getDay()-1] }}
+          </td>
+        </ng-container>
+        <td class="TAC" >NB</td>
+      </tr>
 
 
+      <tr class="weekdays">
+        <td></td>
+        <ng-container *ngFor="let date of dates">
+          <td class="weekday">
+            <p [attr.id]="getFormattedDateId(date, 'null')">
+              {{ date.getDate() }}
+            </p>
+          </td>
+        </ng-container>
+        <td class="TAC" >TR</td>
+      </tr>
+      <ng-container *ngFor="let item of listCollaborateur">
+        
+        <tr class="weekdays">
+          <td class="TAC">{{item.trigramme}}</td>
+          <ng-container *ngFor="let date of dates">
+            <td class="weekday" [attr.id]="getFormattedDateId(date, item.trigramme)">
+            </td>
+          </ng-container>
+          <td class="TAC" >{{calculTR(item.collaborateur_id!)}}</td>
+        </tr>
+      </ng-container>
+    </table>
+    
 
-
-          </p>
-        </div>
-      </div>
-    </div>
     <div class="code-couleur">
       <h2>Code couleur</h2>
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code CP"></p></div>
+          <div class="color-signification"><p>CP</p></div>
+        </div>
+      </div>
   
       <div class="inline-b">
-        <div class="inline-b">
-          <div class="code-couleur-details">
-            <div><p class="color-code CP"></p></div>
-            <div class="color-signification"><p>CP</p></div>
-          </div>
+        <div class="code-couleur-details">
+          <div><p class="color-code ECOLE"></p></div>
+          <div class="color-signification"><p>ECOLE</p></div>
         </div>
-    
-        <div class="inline-b">
-          <div class="code-couleur-details">
-            <div><p class="color-code ECOLE"></p></div>
-            <div class="color-signification"><p>ECOLE</p></div>
-          </div>
+      </div>
+  
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code PRESENT"></p></div>
+          <div class="color-signification"><p>Présent</p></div>
         </div>
-    
-    
-        <div class="inline-b">
-          <div class="code-couleur-details">
-            <div><p class="color-code PRESENT"></p></div>
-            <div class="color-signification"><p>Présent</p></div>
-          </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code ABS"></p></div>
+          <div class="color-signification"><p>Absent Maladie</p></div>
         </div>
-    
-   
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code ABS"></p></div>
-        <div class="color-signification"><p>Absent Maladie</p></div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code CSS"></p></div>
+          <div class="color-signification"><p>Congé SS</p></div>
+        </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code DEMIJM"></p></div>
+          <div class="color-signification"><p>Demi-journée MATIN</p></div>
+        </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code DEMIJS"></p></div>
+          <div class="color-signification"><p>Demi-journée SOIR</p></div>
+        </div>
+      </div>
+  
+      <div class="inline-b">
+        <div class="code-couleur-details">
+          <div><p class="color-code ATT-VALIDATION"></p></div>
+          <div class="color-signification"><p>Attente validation</p></div>
+        </div>
       </div>
     </div>
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code CSS"></p></div>
-        <div class="color-signification"><p>Congé SS</p></div>
-      </div>
-    </div>
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code DEMIJM"></p></div>
-        <div class="color-signification"><p>Demi-journée MATIN</p></div>
-      </div>
-    </div>
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code DEMIJS"></p></div>
-        <div class="color-signification"><p>Demi-journée SOIR</p></div>
-      </div>
-    </div>
-
-
-      </div>
-    
-
-
-
-  </div>
       </div>
       
      <h1>Historique du mois</h1>

@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
-import { CollaborateursService } from '../services/collaborateurs.service';
 import { Collaborateur } from '../models/collaborateur-modele';
 import { Jours } from '../models/jours-modele';
+import { CollaborateursService } from '../services/collaborateurs.service';
 import { JoursServices } from '../services/jours.services';
-import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
-  selector: 'app-calendrier-employe',
-  templateUrl: './calendrier-employe.component.html',
-  styleUrls: ['./calendrier-employe.component.scss'],
+  selector: 'app-dashboard-collaborateur',
+  templateUrl: './dashboard-collaborateur.component.html',
+  styleUrls: ['./dashboard-collaborateur.component.scss']
 })
-export class CalendrierEmployeComponent implements OnInit {
-
+export class DashboardCollaborateurComponent implements OnInit {
   currentMonth!: string;
   weekdays!: string[];
   dates!: Date[];
@@ -48,8 +45,8 @@ export class CalendrierEmployeComponent implements OnInit {
     this.selectedDate = new Date();
     this.generateCalendar(this.selectedDate);
 
-    this.employe_id = this.route.snapshot.params['id'];
-
+    this.employe_id = parseInt(sessionStorage.getItem("ID")!)
+    
     this.cs
       .getCollaborateur(this.employe_id)
       .subscribe((collaborateur: Collaborateur) => {
@@ -80,7 +77,6 @@ export class CalendrierEmployeComponent implements OnInit {
     this.jour.sort((a, b) => parseInt(a.jour) - parseInt(b.jour));
 
     this.jour.forEach((jour) => {
-      console.log(jour)
       if (jour.eligible_tr === 'OUI') {
         this.nbTicket++;
       }
@@ -91,6 +87,7 @@ export class CalendrierEmployeComponent implements OnInit {
       } else {
         jourDom!.className = jour.type
       }
+      
       
     });
   }
@@ -228,7 +225,7 @@ export class CalendrierEmployeComponent implements OnInit {
         this.typeCongeSelectionne,
         this.eligibleTr,
         element,
-        true
+        false
       );
       
       
@@ -237,7 +234,7 @@ export class CalendrierEmployeComponent implements OnInit {
     });
   
     await Promise.all(savePromises); // Attend que toutes les sauvegardes soient terminées
-     await this.updateJours();
+    await this.updateJours();
     this.messageLoading = 'Terminée';
     this.datetraitement = [];
     this.choixTypeJour = false;
@@ -245,27 +242,8 @@ export class CalendrierEmployeComponent implements OnInit {
     this.loadingScreen = false;
     //window.location.reload();
   }
-
-
-  refuseJours(idFormatLong: number) {
-    throw new Error('Method not implemented.');
-    }
-
-  async accepterJours(idFormatLong: number) {
-
-    this.loadingScreen = true;
-    this.messageLoading = 'En cours';
-
-    const JourTrouve : Jours = await this.js.getJoursById(idFormatLong).toPromise()
-    console.log(JourTrouve.mois)
-    JourTrouve.valide = true
-    await this.js.saveJours(JourTrouve).toPromise();
-    await this.updateJours();
-
-
-    this.loadingScreen = false;
-    }
   
 }
+
 
 

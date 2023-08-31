@@ -7,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MenuNavComponent } from './menu-nav/menu-nav.component';
-import { ListEmployeComponent } from './list-employe/list-employe.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeComponent } from './employe/employe.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +18,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { VueEnsembleComponent } from './vue-ensemble/vue-ensemble.component';
 import { CalendarModule } from 'angular-calendar';
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { DashboardCollaborateurComponent } from './dashboard-collaborateur/dashboard-collaborateur.component';
 
 
 
@@ -26,13 +27,14 @@ import { PageConnexionComponent } from './page-connexion/page-connexion.componen
   declarations: [
     AppComponent,
     MenuNavComponent,
-    ListEmployeComponent,
     EmployeComponent,
     CalendrierEmployeComponent,
     CollaborateursComponent,
     LoadingComponent,
     VueEnsembleComponent,
     PageConnexionComponent,
+    DashboardAdminComponent,
+    DashboardCollaborateurComponent,
     
     
     

@@ -312,3 +312,21 @@ tbody button:hover {
     opacity: 1;
   }
 
+
+  .action-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   button{
+    padding: 10px;
+    min-width: 80px;
+
+   }
+
+  }
+
+
+  .accepte{
+    background-color: green !important;
+  }
+

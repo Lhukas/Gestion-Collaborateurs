@@ -17,6 +17,7 @@ import { LowerCasePipe } from '@angular/common';
   styleUrls: ['./vue-ensemble.component.scss']
 })
 export class VueEnsembleComponent implements OnInit {
+
   currentMonth!: string;
   weekdays!: string[];
   weeks: Date[][] = [];
@@ -25,6 +26,9 @@ export class VueEnsembleComponent implements OnInit {
   currentMois !: String;
   jours !: Jours[]
   joursTableau !: Jours[]
+  listCollaborateur : Collaborateur[] = []
+
+  nbTicket : number = 0
 
   IDjoursDOM !: String;
   nbCollaborateursJours : number = 0
@@ -40,9 +44,12 @@ export class VueEnsembleComponent implements OnInit {
 
   
   async ngOnInit(): Promise<void> {
-    this.weekdays = [ 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam','Dim'];
+    this.weekdays = [ 'L', 'M', 'M', 'J', 'V', 'S','D'];
     this.selectedDate = new Date();
     this.generateCalendar(this.selectedDate);
+
+
+    this.listCollaborateur = await this.cs.getAllCollaborateurs().toPromise()
 
     this.refreshConge()
 
@@ -68,12 +75,7 @@ generateCalendar(date: Date): void {
 
   this.dates = [];
 
-  // Add previous month's days to fill the first week
-  for (let i = firstDayOfWeek; i > 0; i--) {
-    const prevDate = new Date(firstDayOfMonth);
-    prevDate.setDate(prevDate.getDate() - i);
-    this.dates.push(prevDate);
-  }
+
 
   // Add current month's days
   for (let i = 1; i <= daysInMonth; i++) {
@@ -96,7 +98,7 @@ generateCalendar(date: Date): void {
   }
 
 
-  getFormattedDateId(date: Date): string {
+  getFormattedDateId(date: Date, trigramme : string): string {
     const day =
       date.getDate() < 10 ? '0' + date.getDate() : date.getDate().toString();
     const month =
@@ -104,7 +106,12 @@ generateCalendar(date: Date): void {
         ? '0' + (date.getMonth() + 1)
         : (date.getMonth() + 1).toString();
     const year = date.getFullYear().toString();
-    return day + month + year;
+    if (trigramme == 'null') {
+      return day + month + year;
+    } else {
+      return day + month + year+'-'+trigramme;
+    }
+    
   }
 
 
@@ -144,27 +151,33 @@ generateCalendar(date: Date): void {
 this.IDjoursDOM = this.jours[0].idFormatLong;
 var result = 0 ;
 
-const savePromises = this.jours.map(async (element) => {
+const savePromises = this.jours.map(async (jour) => {
 
   
-  await this.cs.getCollaborateur(element.id_collaborateurs!).toPromise()
+  await this.cs.getCollaborateur(jour.id_collaborateurs!).toPromise()
   .then(async (collaborateur) => {
 
+    var className : string = ""
   
-  const elementIdString = element.idFormatLong.toString();
-  const elementIdTableauString = elementIdString + "-tableau";
-  const collaborateurHtml = '<p class="nomCollaborateur ' + element.type + '">' + collaborateur.trigramme + '</p>';
+      if (jour.valide == false) {
+        className = 'ATT-VALIDATION'
+      } else {
+        className = jour.type
+      }
 
+  
+  const jourIdString = jour.idFormatLong.toString()+"-"+collaborateur.trigramme;
+  const jourIdTableauString = jour.idFormatLong.toString() + "-tableau";
+  const collaborateurHtml = '<p class="nomCollaborateur ' + className + '">' + collaborateur.trigramme + '</p>';
 
-  document.getElementById(elementIdString)!.innerHTML += collaborateurHtml;
- 
-  if(document.getElementById(elementIdString)!.querySelectorAll('p').length == 3){
-    document.getElementById(elementIdString)!.innerHTML = parseInt(element.jour) + '<p class="nomCollaborateur more">3+</p>'
+  if (jour.valide == true) {
+    document.getElementById(jourIdString)!.classList.add(jour.type);
+  } else {
+    document.getElementById(jourIdString)!.classList.add("ATT-VALIDATION");
   }
-  
 
-  
-  document.getElementById(elementIdTableauString)!.innerHTML += collaborateurHtml;
+
+  document.getElementById(jourIdTableauString)!.innerHTML += collaborateurHtml;
   
   })
 
@@ -180,5 +193,26 @@ await Promise.all(savePromises);
   this.messageLoading = 'Terminée';
 this.loadingScreen = false;
 }
+
+
+  async calculTR(id: number) {
+
+ await this.js
+  .getJoursByMoisAndId(id, this.currentMois)
+  .subscribe((jour: Jours[]) => {
+    if (jour.eligible_tr === 'OUI') {
+      this.nbTicket++;
+    }
+  });
+
+
+
+
+
+  return this.nbTicket;
+}
+
+
+
 }
 

@@ -1,17 +1,13 @@
-import { asLiteral } from '@angular/compiler/src/render3/view/util';
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Collaborateur } from '../models/collaborateur-modele';
-
 import { CollaborateursService } from '../services/collaborateurs.service';
 
-
 @Component({
-  selector: 'app-list-employe',
-  templateUrl: './list-employe.component.html',
-  styleUrls: ['./list-employe.component.scss']
+  selector: 'app-dashboard-admin',
+  templateUrl: './dashboard-admin.component.html',
+  styleUrls: ['./dashboard-admin.component.scss']
 })
-export class ListEmployeComponent implements OnInit {
-
+export class DashboardAdminComponent implements OnInit {
 
 
 

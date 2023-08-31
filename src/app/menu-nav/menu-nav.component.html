@@ -13,9 +13,18 @@
 
     <ul class="nav">
 
-        <li><a routerLink="/Acceuil" *ngIf="admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Accueil</a></li>
-        <li><a routerLink="/Vue-ensemble"  routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Vue d'ensemble</a></li>
+      <!--Header si la personne est admin-->
+        <li><a routerLink="/Dashboard-admin" *ngIf="admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Dashboard</a></li>
         <li><a routerLink="/Collaborateur" *ngIf="admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Collaborateur</a></li>
+
+
+        <!--Header si la personne est non admin-->
+        <li><a routerLink="/Dashboard-Collaborateur" *ngIf="admin==false" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Dashboard</a></li>
+
+
+         <!--Header POUR TOUS LE MONDE-->
+        <li><a routerLink="/Vue-ensemble"  routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Vue d'ensemble</a></li>
+        <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Deconnexion</a></li>
         
     </ul>
 

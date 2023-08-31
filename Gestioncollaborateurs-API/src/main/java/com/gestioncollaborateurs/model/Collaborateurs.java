@@ -37,6 +37,8 @@ public class Collaborateurs {
 	
 	private String mdp;
 	
+	private String mail;
+	
 
 
 
@@ -136,6 +138,16 @@ public class Collaborateurs {
 
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
+	}
+
+
+	public String getMail() {
+		return mail;
+	}
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	
 	
