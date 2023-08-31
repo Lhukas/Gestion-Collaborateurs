@@ -14,40 +14,37 @@
     <table class="calendar-table">
       <tr class="weekdays">
         <td></td>
-        <ng-container *ngFor="let day of dates">
-          <td class="weekday">
+          <td class="weekday" *ngFor="let day of dates">
             {{ weekdays[day.getDay()-1] }}
           </td>
-        </ng-container>
         <td class="TAC" >NB</td>
       </tr>
 
 
       <tr class="weekdays">
         <td></td>
-        <ng-container *ngFor="let date of dates">
-          <td class="weekday">
+        
+          <td class="weekday" *ngFor="let date of dates">
             <p [attr.id]="getFormattedDateId(date, 'null')">
               {{ date.getDate() }}
             </p>
           </td>
-        </ng-container>
+     
         <td class="TAC" >TR</td>
       </tr>
-      <ng-container *ngFor="let item of listCollaborateur">
-        
-        <tr class="weekdays">
+        <tr class="weekdays" *ngFor="let item of listCollaborateur">
           <td class="TAC">{{item.trigramme}}</td>
-          <ng-container *ngFor="let date of dates">
-            <td class="weekday" [attr.id]="getFormattedDateId(date, item.trigramme)">
+          
+            <td class="weekday" [attr.id]="getFormattedDateId(date, item.trigramme)" *ngFor="let date of dates">
             </td>
-          </ng-container>
-          <td class="TAC" >{{calculTR(item.collaborateur_id!)}}</td>
+         <td class="TAC" [id]="'TR-'+item.trigramme "></td>
         </tr>
-      </ng-container>
     </table>
     
+<!--    
 
+   <td class="TAC" >{{calculTR(item.collaborateur_id!)}}</td>
+-->
     <div class="code-couleur">
       <h2>Code couleur</h2>
       <div class="inline-b">

@@ -89,12 +89,14 @@ generateCalendar(date: Date): void {
     this.selectedDate = subMonths(this.selectedDate, 1);
     this.generateCalendar(this.selectedDate);
     this.refreshConge()
+    this.calculTR()
   }
 
   nextMonth(): void {
     this.selectedDate = addMonths(this.selectedDate, 1);
     this.generateCalendar(this.selectedDate);
     this.refreshConge()
+    this.calculTR()
   }
 
 
@@ -183,7 +185,7 @@ const savePromises = this.jours.map(async (jour) => {
 
  
 });
-
+ this.calculTR()
 await Promise.all(savePromises);
 
 
@@ -191,25 +193,39 @@ await Promise.all(savePromises);
 
   }
   this.messageLoading = 'Terminée';
-this.loadingScreen = false;
+  this.loadingScreen = false;
 }
 
 
-  async calculTR(id: number) {
+  async calculTR() {
 
- await this.js
-  .getJoursByMoisAndId(id, this.currentMois)
-  .subscribe((jour: Jours[]) => {
-    if (jour.eligible_tr === 'OUI') {
-      this.nbTicket++;
-    }
-  });
+    console.log(this.currentMois)
 
+    await this.listCollaborateur.forEach(async element => {
 
+     var nbTickets = 0
 
+      await this.js
+    .getJoursByMoisAndId(element.collaborateur_id!, this.currentMois)
+    .subscribe((jours: Jours[]) => {
+      for (const jour of jours) {
+        if (jour.eligible_tr === 'OUI') {
+          nbTickets++;
+        }
+      }
+      
+    document.getElementById("TR-"+element.trigramme)!.innerHTML! = nbTickets.toString()
+    });
+    
+    
 
-
-  return this.nbTicket;
+  
+   
+     
+    });
+    
+  
+ 
 }
 
 
