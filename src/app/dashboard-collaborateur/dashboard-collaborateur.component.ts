@@ -87,6 +87,8 @@ export class DashboardCollaborateurComponent implements OnInit {
       } else {
         jourDom!.className = jour.type
       }
+
+      jourDom!.style.pointerEvents = "none"
       
       
     });

@@ -41,6 +41,28 @@
 
     <div class="inline-b">
       <div class="code-couleur-details">
+        <div><p class="color-code CR"></p></div>
+        <div class="color-signification"><p>CR</p></div>
+      </div>
+    </div>
+
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code AR"></p></div>
+        <div class="color-signification"><p>AR</p></div>
+      </div>
+    </div>
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code CS"></p></div>
+        <div class="color-signification"><p>CS</p></div>
+      </div>
+    </div>
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
         <div><p class="color-code ECOLE"></p></div>
         <div class="color-signification"><p>ECOLE</p></div>
       </div>
@@ -60,6 +82,23 @@
         <div class="color-signification"><p>Absent Maladie</p></div>
       </div>
     </div>
+
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code AT"></p></div>
+        <div class="color-signification"><p>AT</p></div>
+      </div>
+    </div>
+
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code ANR"></p></div>
+        <div class="color-signification"><p>Abscence NR</p></div>
+      </div>
+    </div>
+
 
     <div class="inline-b">
       <div class="code-couleur-details">
@@ -81,6 +120,7 @@
         <div class="color-signification"><p>Demi-journée SOIR</p></div>
       </div>
     </div>
+
 
     <div class="inline-b">
       <div class="code-couleur-details">
@@ -117,7 +157,7 @@
         <td >
           <div *ngIf="jourItem.valide==false; else elseBlock" class="action-btn">
             <button (click)="accepterJours(jourItem.id_jours!)" class="accepte">Accepter</button>
-            <button (click)="refuseJours(jourItem.id_jours!)" class="refuse">refusée</button>
+            <button (click)="refuseJours(jourItem.idFormatLong!)" class="refuse">refusée</button>
           </div>
 
           <ng-template #elseBlock>
@@ -203,6 +243,31 @@
     </div></div>
   </div>
 
+
+  <div class="back_popup" *ngIf="refus">
+    <div id="popup" class="popup" >
+      <span class="close-btn" (click)="refus = false">&#10006;</span>
+      <div class="popup-header">
+        <h2>Jour sélectionné</h2>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Jours formatté</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{jourRefus}}</td>
+          </tr>
+        </tbody>
+        </table>
+        <h2>Motif refus</h2>
+       <textarea name="" id="" cols="30" rows="10"></textarea>
+  
+        <button class="btn" (click)="saveJours()">Valider</button>
+      </div>
+    </div>
   <app-loading *ngIf="loadingScreen" [message]="messageLoading"></app-loading>
 
 

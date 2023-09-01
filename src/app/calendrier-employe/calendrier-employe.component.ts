@@ -21,8 +21,9 @@ export class CalendrierEmployeComponent implements OnInit {
   prenom!: string;
   nom!: string;
   employe_id!: number;
-
+refus : boolean = false
   current_month_string!: string;
+  jourRefus !: string
 
   collaborateur!: Collaborateur;
 
@@ -247,8 +248,12 @@ export class CalendrierEmployeComponent implements OnInit {
   }
 
 
-  refuseJours(idFormatLong: number) {
-    throw new Error('Method not implemented.');
+  refuseJours(idFormatLong: string) {
+    
+    this.refus = true
+    this.jourRefus = idFormatLong
+
+
     }
 
   async accepterJours(idFormatLong: number) {
