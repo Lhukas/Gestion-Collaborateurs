@@ -238,8 +238,10 @@ export class DashboardCollaborateurComponent implements OnInit {
     });
   
 
-    await this.ms.EmailDemande(this.prenom,this.nom,this.collaborateur.mail)
+    await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
+
     await this.updateJours();
+    
     this.messageLoading = 'Terminée';
     this.datetraitement = [];
     this.choixTypeJour = false;

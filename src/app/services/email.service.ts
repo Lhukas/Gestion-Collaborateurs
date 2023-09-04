@@ -1,98 +1,22 @@
 import { Injectable } from '@angular/core';
-import * as nodemailer from 'nodemailer';
+
+
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmailService {
 
-  private transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'dlinfo.planning@gmail.com', // Remplacez par votre adresse Gmail
-      pass: '20@Lhukas01' // Remplacez par votre mot de passe Gmail
-    }
-  });
 
-  constructor() { }
+  ApiKey : string = "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"
 
- 
-
-
-
-
-
-
-
-
-  EmailDemande(prenom : string, nom : string, email : string) : Promise<any>{
-    
-    const mailOptions = {
-      from: 'dlinfo.planning@gmail.com',
-      to: email,
-      subject: "Demande de congée(s)",
-      text: "demande de congé"
-    };
-
-
-    return new Promise((resolve, reject) => {
-      this.transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(info);
-        }
-      });
-    });
+  EmailDemande(idCollaborateur: number, mail: string) {
+   
+  }
 
   
-  }
-
-
-  Emailrefus(motif : string, email : string){
-    const mailOptions = {
-      from: 'dlinfo.planning@gmail.com',
-      to: email,
-      subject: "Refus de congée(s)",
-      text: "demande de congé"
-    };
-
-
-    return new Promise((resolve, reject) => {
-      this.transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(info);
-        }
-      });
-    });
-
-  }
-
-
-
-  EmailAccord(prenom : string, nom : string, email : string){
-
-    const mailOptions = {
-      from: 'dlinfo.planning@gmail.com',
-      to: email,
-      subject: "Accord congée(s)",
-      text: "demande de congé"
-    };
-
-
-    return new Promise((resolve, reject) => {
-      this.transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(info);
-        }
-      });
-    });
-
-  }
 
 
 

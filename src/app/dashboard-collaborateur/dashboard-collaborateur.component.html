@@ -1,8 +1,8 @@
 <app-menu-nav></app-menu-nav>
 <div class="container-employe">
   <h3>
-    Calendrider de : <br />
-    {{ prenom| uppercase }} {{ nom }}
+    Calendrier de : <br />
+    {{ prenom | lowercase }} {{ nom | uppercase }}
   </h3>
 
   <div class="calendar">
@@ -27,7 +27,7 @@
   </div>
 
   <div class="day-bouton">
-    <button (click)="GestionJours()">Gerer jour(s)</button>
+    <button (click)="GestionJours()">Faire une demande</button>
   </div>
 
   <div class="code-couleur">
@@ -42,7 +42,7 @@
     <div class="inline-b">
       <div class="code-couleur-details">
         <div><p class="color-code CR"></p></div>
-        <div class="color-signification"><p>CR</p></div>
+        <div class="color-signification"><p>Révisions</p></div>
       </div>
     </div>
 
@@ -50,21 +50,35 @@
     <div class="inline-b">
       <div class="code-couleur-details">
         <div><p class="color-code AR"></p></div>
-        <div class="color-signification"><p>AR</p></div>
+        <div class="color-signification"><p>Abs Rém</p></div>
+      </div>
+    </div>
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code ANR"></p></div>
+        <div class="color-signification"><p>Abs NR</p></div>
       </div>
     </div>
 
     <div class="inline-b">
       <div class="code-couleur-details">
         <div><p class="color-code CS"></p></div>
-        <div class="color-signification"><p>CS</p></div>
+        <div class="color-signification"><p>Congé Spé</p></div>
+      </div>
+    </div>
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code CSS"></p></div>
+        <div class="color-signification"><p>Congé SS</p></div>
       </div>
     </div>
 
     <div class="inline-b">
       <div class="code-couleur-details">
         <div><p class="color-code ECOLE"></p></div>
-        <div class="color-signification"><p>ECOLE</p></div>
+        <div class="color-signification"><p>Ecole</p></div>
       </div>
     </div>
 
@@ -73,37 +87,6 @@
       <div class="code-couleur-details">
         <div><p class="color-code PRESENT"></p></div>
         <div class="color-signification"><p>Présent</p></div>
-      </div>
-    </div>
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code ABS"></p></div>
-        <div class="color-signification"><p>Absent Maladie</p></div>
-      </div>
-    </div>
-
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code AT"></p></div>
-        <div class="color-signification"><p>AT</p></div>
-      </div>
-    </div>
-
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code ANR"></p></div>
-        <div class="color-signification"><p>Abscence NR</p></div>
-      </div>
-    </div>
-
-
-    <div class="inline-b">
-      <div class="code-couleur-details">
-        <div><p class="color-code CSS"></p></div>
-        <div class="color-signification"><p>Congé SS</p></div>
       </div>
     </div>
 
@@ -121,6 +104,29 @@
       </div>
     </div>
 
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code ABS"></p></div>
+        <div class="color-signification"><p>Abs Mal</p></div>
+      </div>
+    </div>
+
+
+    <div class="inline-b">
+      <div class="code-couleur-details">
+        <div><p class="color-code AT"></p></div>
+        <div class="color-signification"><p>Acc Trav</p></div>
+      </div>
+    </div>
+
+
+   
+
+
+   
+
+
+
 
     <div class="inline-b">
       <div class="code-couleur-details">
@@ -129,21 +135,20 @@
       </div>
     </div>
 
-    <h3>Nombre de tickets restaurant éligible a ce mois : </h3>
+    <h3>Nombre de tickets-restaurant éligible à ce mois : </h3>
     <h2>{{nbTicket}}</h2>
   </div>
-
   <h1>Historique du mois</h1>
  
   <table>
     <thead>
       <tr>
-        <th>Jours formatté</th>
-        <th>Jours</th>
+        <th>Date</th>
+        <th>Jour</th>
         <th>Mois</th>
         <th>Année</th>
         <th>Type</th>
-        <th>validation</th>
+        <th>Validation</th>
       </tr>
     </thead>
     <tbody>
@@ -153,7 +158,7 @@
         <td>{{ jourItem.mois}}</td>
         <td>{{ jourItem.annee}}</td>
         <td>{{ jourItem.type}}</td>
-        <td>{{ jourItem.valide}}</td>
+        <td>{{ jourItem.valide ? 'Validé' : 'En attente'}}</td>
       </tr>
     </tbody>
 
@@ -165,12 +170,12 @@
   <div id="popup" class="popup" >
     <span class="close-btn" (click)="choixTypeJour = false">&#10006;</span>
     <div class="popup-header">
-      <h2>Jours sélectionné</h2>
+      <h2>Jour(s) sélectionné(s)</h2>
     </div>
     <table>
       <thead>
         <tr>
-          <th>Jours</th>
+          <th>Jour(s)</th>
         </tr>
       </thead>
       <tbody>
@@ -203,7 +208,7 @@
         <label class="radio-label">
           <input type="radio" class="radio-input" name="typeConge" value="CS" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
-          <span>Congé spécifique (maternité..)</span>
+          <span>Congé spécifique (paternité, évènements familiaux, deuil ...)</span>
         </label>
 
 

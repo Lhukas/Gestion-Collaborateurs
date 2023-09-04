@@ -15,7 +15,7 @@
 
       <!--Header si la personne est admin-->
         <li><a routerLink="/Dashboard-admin" *ngIf="admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Dashboard</a></li>
-        <li><a routerLink="/Collaborateur" *ngIf="admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Collaborateur</a></li>
+        <li><a routerLink="/Collaborateur" *ngIf="admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Collaborateurs</a></li>
 
 
         <!--Header si la personne est non admin-->
@@ -24,7 +24,7 @@
 
          <!--Header POUR TOUS LE MONDE-->
         <li><a routerLink="/Vue-ensemble"  routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Vue d'ensemble</a></li>
-        <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Deconnexion</a></li>
+        <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact : true}">Déconnexion</a></li>
         
     </ul>
 

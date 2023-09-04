@@ -24,14 +24,17 @@
         <td>{{ collaborateurItem.mail | lowercase}}</td>
         <td>{{ collaborateurItem.trigramme | uppercase}}</td>
         <td>{{ collaborateurItem.groupe | uppercase}}</td>
-        <td>{{ collaborateurItem.admin.toString()| lowercase}}</td>
+        <td>{{ collaborateurItem.admin ? 'OUI' : 'NON'}}</td>
         <td>
-          <button (click)="supprimerCollaborateur(collaborateurItem.collaborateur_id)">Supprimer</button>
+          <button (click)="modifieCollaborateur(collaborateurItem.collaborateur_id)">Modification</button>
         </td>
       </tr>
     </tbody>
 
   </table>
+
+
+  <h2>Collaborateurs Archivés ( mettre a jour base de données et les services et faire le tri lors de la selection) archivé niveau du groupe</h2>
   
 
   
@@ -40,43 +43,44 @@
 <br>
   <form #addForm="ngForm" (ngSubmit)="onAddCollaborateur()">
     <div>
-      <label for="nom">Nom:</label>
-      <input type="text" id="nom" name="nom" [(ngModel)]="newCollaborateur.nom" >
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" [(ngModel)]="newCollaborateur.nom" required>
     </div>
     <div>
-      <label for="prenom">Prénom:</label>
-      <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" >
+      <label for="prenom">Prénom :</label>
+      <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" required >
     </div>
 
     <div>
       <label for="mail">Mail :</label>
-      <input type="text" id="mail" name="mail" [(ngModel)]="newCollaborateur.mail" >
+      <input type="text" id="mail" name="mail" [(ngModel)]="newCollaborateur.mail" required >
     </div>
 
 
     <div>
-      <label for="trigramme">Trigramme:</label>
-      <input type="text" id="trigramme" name="trigramme" [(ngModel)]="newCollaborateur.trigramme" >
+      <label for="trigramme">Trigramme :</label>
+      <input type="text" id="trigramme" name="trigramme" [(ngModel)]="newCollaborateur.trigramme" required>
     </div>
 
     <div>
       <label for="matricule">Matricule :</label>
-      <input type="text" id="matricule" name="matricule" [(ngModel)]="newCollaborateur.matricule" >
+      <input type="text" id="matricule" name="matricule" [(ngModel)]="newCollaborateur.matricule" required>
     </div>
 
 
     <div>
     <label for="groupe">Groupe :</label>
-    <select [(ngModel)]="newCollaborateur.groupe" name="options">
+    <select [(ngModel)]="newCollaborateur.groupe" name="options" required>
       <option value="CONSULTING">CONSULTING</option>
       <option value="AGENCE">AGENCE</option>
+    
     </select>
 </div>
 
 
 <div>
   <label for="admin">Admin :</label>
-  <select [(ngModel)]="newCollaborateur.admin" name="options">
+  <select [(ngModel)]="newCollaborateur.admin" name="options" required> 
     <option value="TRUE" >OUI</option>
     <option value="FALSE" [attr.selected]="true" >NON</option>
   </select>
@@ -85,7 +89,7 @@
 
 <div>
   <label for="mdp">Mot de passe :</label>
-  <input type="text" id="mdp" name="mdp" [(ngModel)]="newCollaborateur.mdp" >
+  <input type="text" id="mdp" name="mdp" [(ngModel)]="newCollaborateur.mdp" required>
 </div>
 
 
@@ -97,3 +101,78 @@
 
 
     </div>
+
+
+
+
+    <div class="back_popup" *ngIf="modification">
+      <div id="popup" class="popup" >
+        <span class="close-btn" (click)='fermerModification()'>&#10006;</span>
+        <div class="popup-header">
+          <h2>Modification collaborateur</h2>
+        </div>
+        <form #addForm="ngForm" (ngSubmit)="onAddCollaborateur()">
+          <div>
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" [(ngModel)]="newCollaborateur.nom" required>
+          </div>
+          <div>
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" [(ngModel)]="newCollaborateur.prenom" required>
+          </div>
+      
+          <div>
+            <label for="mail">Mail :</label>
+            <input type="text" id="mail" name="mail" [(ngModel)]="newCollaborateur.mail" required>
+          </div>
+      
+      
+          <div>
+            <label for="trigramme">Trigramme :</label>
+            <input type="text" id="trigramme" name="trigramme" [(ngModel)]="newCollaborateur.trigramme" required>
+          </div>
+      
+          <div>
+            <label for="matricule">Matricule :</label>
+            <input type="text" id="matricule" name="matricule" [(ngModel)]="newCollaborateur.matricule" required>
+          </div>
+      
+      
+          <div>
+          <label for="groupe">Groupe :</label>
+          <select [(ngModel)]="newCollaborateur.groupe" name="options" required>
+            <option value="CONSULTING">CONSULTING</option>
+            <option value="AGENCE">AGENCE</option>
+            <option value="ARCHIVE">ARCHIVE</option>
+          
+          </select>
+      </div>
+      
+      
+      <div>
+        <label for="admin">Admin :</label>
+        <select [(ngModel)]="newCollaborateur.admin" name="options" required>
+          <option value="TRUE" >OUI</option>
+          <option value="FALSE" [attr.selected]="true" >NON</option>
+        </select>
+      </div>
+      
+      
+      <div>
+        <label for="mdp">Mot de passe :</label>
+        <input type="text" id="mdp" name="mdp" [(ngModel)]="newCollaborateur.mdp" >
+      </div>
+      
+      
+          <div>
+            <button [disabled]="addForm.invalid" type="submit">Enregistrer modification(s)</button>
+          </div>
+        </form>
+    
+    
+            <button class="btn-supprime" (click)="supprimeCollaborateur(newCollaborateur.collaborateur_id!)" >Supprimé collaborateur</button>
+          </div>
+    
+    
+          
+        </div>
