@@ -29,6 +29,11 @@ export class MenuNavComponent implements OnInit {
         case "Vue-ensemble":
           this.changePath("Vue d'ensemble");
           break;
+
+
+          case "Dashboard-admin":
+          this.changePath("Dashboard admin");
+          break;
       
         default:
           this.changePath(currentRoute.split('/')[0]);

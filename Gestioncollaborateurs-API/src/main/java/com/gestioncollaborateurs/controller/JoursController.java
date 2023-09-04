@@ -15,6 +15,8 @@ import com.gestioncollaborateurs.model.Collaborateurs;
 import com.gestioncollaborateurs.model.Jours;
 import com.gestioncollaborateurs.service.JoursService;
 
+import lombok.extern.java.Log;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class JoursController {
@@ -64,4 +66,9 @@ public class JoursController {
 		return js.getJoursByMois(mois);
 	}
 	
+	
+	@RequestMapping("/Jours/delete/{idCollaborateur}/{idJours}"  )
+	public void delateJours(@PathVariable Long idCollaborateur, @PathVariable String idJours) {
+		js.deleteJours(idCollaborateur,idJours);
+	}
 }

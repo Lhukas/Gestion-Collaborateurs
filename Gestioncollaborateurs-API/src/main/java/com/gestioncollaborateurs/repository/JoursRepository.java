@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.gestioncollaborateurs.model.Collaborateurs;
 import com.gestioncollaborateurs.model.Jours;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface JoursRepository extends CrudRepository <Jours, Long>{
 	
@@ -32,12 +34,17 @@ public interface JoursRepository extends CrudRepository <Jours, Long>{
 	
 	
 	@Query("SELECT j FROM Jours j WHERE j.idFormatLong = :IDformatLong AND j.id_collaborateurs = :IDcollaborateur")
-	Jours findJour(@Param("IDformatLong") String jour, @Param("IDcollaborateur") Long long1);
+	Jours findJour(@Param("IDformatLong") String IDformatLong, @Param("IDcollaborateur") Long long1);
 	
 	@Modifying
 	@Query("DELETE FROM Jours WHERE id_collaborateurs = :id")
 	void deleteAllJoursByCollaborateur(@Param("id") Long id);
 
+
+	@Modifying
+	@Query("DELETE FROM Jours j WHERE j.id_collaborateurs = :IDcollaborateur AND j.idFormatLong = :IDJours")
+	@Transactional
+	void deletejoursByIdFormat(@Param("IDcollaborateur") Long IDcollaborateur, @Param("IDJours") String IDJours);
 
 
 

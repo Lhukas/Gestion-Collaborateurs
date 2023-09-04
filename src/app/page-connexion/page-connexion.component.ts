@@ -12,6 +12,7 @@ import { Collaborateur } from '../models/collaborateur-modele';
   styleUrls: ['./page-connexion.component.scss']
 })
 export class PageConnexionComponent implements OnInit {
+
 mdp!: string;
 trigramme!: string;
 
@@ -59,13 +60,20 @@ messageError : boolean = false;
     }
     sessionStorage.setItem("ID", collaborateurTrouve.collaborateur_id!.toString());
    }
-
- 
-
-
-   
-
-   
     }
+
+
+    showmdp() {
+
+      /*
+      if(document.getElementById("mdp1")!.type == "text"){
+        document.getElementById("mdp1")!.t = "password"
+      
+    }
+    else if( document.getElementById("mdp1")!.type == "password" ){
+        document.getElementById("mdp1")!.type = "text"
+    }*/
+      }
+
 
 }

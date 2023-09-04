@@ -248,20 +248,41 @@ refus : boolean = false
   }
 
 
-  refuseJours(idFormatLong: string) {
-    
+  async refuseJours(idFormatLong: string) {
+
+  
     this.refus = true
     this.jourRefus = idFormatLong
 
 
+
     }
 
-  async accepterJours(idFormatLong: number) {
+
+    async deleteJours() {
+
+      this.loadingScreen = true;
+      this.messageLoading = 'En cours';
+      
+      await this.js.deleteJoursByID(this.jourRefus, this.employe_id).toPromise()
+      await this.updateJours();
+  
+
+      this.loadingScreen = false;
+      this.refus = false
+  
+  
+      }
+
+
+    
+
+  async accepterJours(id: number) {
 
     this.loadingScreen = true;
     this.messageLoading = 'En cours';
 
-    const JourTrouve : Jours = await this.js.getJoursById(idFormatLong).toPromise()
+    const JourTrouve : Jours = await this.js.getJoursById(id).toPromise()
     console.log(JourTrouve.mois)
     JourTrouve.valide = true
     await this.js.saveJours(JourTrouve).toPromise();

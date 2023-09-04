@@ -36,6 +36,10 @@ import { environment } from 'src/environments/environment';
         return this.httpClient.get<Jours[]>(environment.API_URL+"/Jours/mois/"+mois)
     }
 
+    deleteJoursByID(id : string, idCollaborateur : number){
+        return this.httpClient.get(environment.API_URL + '/Jours/delete/' + idCollaborateur +'/'+id)
+    }
+
 
 
   }

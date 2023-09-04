@@ -27,6 +27,8 @@ export class VueEnsembleComponent implements OnInit {
   jours !: Jours[]
   joursTableau !: Jours[]
   listCollaborateur : Collaborateur[] = []
+  listCollaborateurAgence : Collaborateur[] = []
+  listCollaborateurConsulting : Collaborateur[] = []
 
   nbTicket : number = 0
 
@@ -50,6 +52,15 @@ export class VueEnsembleComponent implements OnInit {
 
 
     this.listCollaborateur = await this.cs.getAllCollaborateurs().toPromise()
+    this.listCollaborateur.forEach(element => {
+      console.log(element.groupe)
+
+      if(element.groupe=="AGENCE"){
+      this.listCollaborateurAgence.push(element)
+      }else{
+      this.listCollaborateurConsulting.push(element)
+      }
+    });
 
     this.refreshConge()
 

@@ -32,14 +32,23 @@
      
         <td class="TAC" >TR</td>
       </tr>
-        <tr class="weekdays" *ngFor="let item of listCollaborateur">
+      <div class="groupe">AGENCE</div>
+        <tr class="weekdays" *ngFor="let item of listCollaborateurAgence">
           <td class="TAC">{{item.trigramme}}</td>
           
             <td class="weekday" [attr.id]="getFormattedDateId(date, item.trigramme)" *ngFor="let date of dates">
             </td>
          <td class="TAC" [id]="'TR-'+item.trigramme "></td>
         </tr>
-        <div>CONSULTING</div>
+        <div class="groupe" >CONSULTING</div>
+        <tr class="weekdays" *ngFor="let item of listCollaborateurConsulting">
+          <td class="TAC">{{item.trigramme}}</td>
+          
+            <td class="weekday" [attr.id]="getFormattedDateId(date, item.trigramme)" *ngFor="let date of dates">
+            </td>
+         <td class="TAC" [id]="'TR-'+item.trigramme "></td>
+        </tr>
+
     </table>
     
 <!--    
@@ -136,6 +145,8 @@
           <div class="color-signification"><p>Attente validation</p></div>
         </div>
       </div>
+      </div>
+    </div>
       
      <h1>Historique du mois</h1>
  

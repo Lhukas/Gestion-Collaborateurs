@@ -75,5 +75,11 @@ public class JoursService {
 	}
 
 
+	public void deleteJours(Long id, String IdJours) {
+		jr.deletejoursByIdFormat(id,IdJours);
+		
+	}
+
+
 
 }
