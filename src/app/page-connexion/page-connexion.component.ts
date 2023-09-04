@@ -18,6 +18,10 @@ trigramme!: string;
 loadingScreen: boolean = false;
 messageLoading: string = "connexion en cours...";
 
+
+messageError : boolean = false;
+
+
   constructor( private http : HttpClient,
     private cs : CollaborateursService,
     private router : Router) { }
@@ -37,9 +41,11 @@ messageLoading: string = "connexion en cours...";
 
 
    const collaborateurTrouve : Collaborateur = await this.cs.connexion(this.trigramme, this.mdp).toPromise()
+  
+
 
    if(collaborateurTrouve == null){
-    alert("aucune personne trouvé")
+    this.messageError = true
     this.loadingScreen = false
    }
    else{

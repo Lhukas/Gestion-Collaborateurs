@@ -19,14 +19,13 @@
         
 <div class='mdp'>
        <!-- <label> <input type="checkbox" class='iptCheck'/> Se souvenir de moi  </label> -->
-
         <label>Mot de passe oubliée ?</label>
       </div>    
        <button class='btnCONNEXION' type="submit">Se connecter</button>
     </form> 
+
    
-  
-      <p class="connexionMessageError">Adresse mail ou mot de passe incorrect</p>
+      <p class="connexionMessageError" *ngIf="messageError">Adresse mail ou mot de passe incorrect</p>
     <a class="btnAgence" href="https://www.dlinfo.fr/">Retourner sur le site de l'agence</a>
       </div>
     </div>

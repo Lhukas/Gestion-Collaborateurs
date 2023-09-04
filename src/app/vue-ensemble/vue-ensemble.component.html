@@ -146,6 +146,7 @@
         <th>Jours</th>
         <th>Mois</th>
         <th>Année</th>
+        <th>Type</th>
         <th>récap</th>
       </tr>
     </thead>
@@ -156,6 +157,7 @@
         <td>{{ jourItem.jour}}</td>
         <td>{{ jourItem.mois}}</td>
         <td>{{ jourItem.annee}}</td>
+        <td>{{ jourItem.type}}</td>
         <td [attr.id]="jourItem.idFormatLong+'-tableau'"></td>
       </tr>
     </tbody>
