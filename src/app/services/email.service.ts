@@ -9,20 +9,31 @@ export class EmailService {
   private transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'votre_adresse@gmail.com', // Remplacez par votre adresse Gmail
-      pass: 'votre_mot_de_passe' // Remplacez par votre mot de passe Gmail
+      user: 'dlinfo.planning@gmail.com', // Remplacez par votre adresse Gmail
+      pass: '20@Lhukas01' // Remplacez par votre mot de passe Gmail
     }
   });
 
   constructor() { }
 
-  sendEmail(to: string, subject: string, text: string): Promise<any> {
+ 
+
+
+
+
+
+
+
+
+  EmailDemande(prenom : string, nom : string, email : string) : Promise<any>{
+    
     const mailOptions = {
-      from: 'votre_adresse@gmail.com',
-      to: to,
-      subject: subject,
-      text: text
+      from: 'dlinfo.planning@gmail.com',
+      to: email,
+      subject: "Demande de congée(s)",
+      text: "demande de congé"
     };
+
 
     return new Promise((resolve, reject) => {
       this.transporter.sendMail(mailOptions, (error, info) => {
@@ -33,5 +44,56 @@ export class EmailService {
         }
       });
     });
+
+  
   }
+
+
+  Emailrefus(motif : string, email : string){
+    const mailOptions = {
+      from: 'dlinfo.planning@gmail.com',
+      to: email,
+      subject: "Refus de congée(s)",
+      text: "demande de congé"
+    };
+
+
+    return new Promise((resolve, reject) => {
+      this.transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(info);
+        }
+      });
+    });
+
+  }
+
+
+
+  EmailAccord(prenom : string, nom : string, email : string){
+
+    const mailOptions = {
+      from: 'dlinfo.planning@gmail.com',
+      to: email,
+      subject: "Accord congée(s)",
+      text: "demande de congé"
+    };
+
+
+    return new Promise((resolve, reject) => {
+      this.transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(info);
+        }
+      });
+    });
+
+  }
+
+
+
 }
