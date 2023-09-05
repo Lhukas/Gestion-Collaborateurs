@@ -263,6 +263,7 @@ refus : boolean = false
 
       this.loadingScreen = true;
       this.messageLoading = 'En cours';
+      document.getElementById(this.jourRefus)!.className = ""
       
       await this.js.deleteJoursByID(this.jourRefus, this.employe_id).toPromise()
       await this.updateJours();

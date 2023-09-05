@@ -88,6 +88,7 @@ export class DashboardCollaborateurComponent implements OnInit {
         jourDom!.className = 'ATT-VALIDATION'
       } else {
         jourDom!.className = jour.type
+        
       }
 
       jourDom!.style.pointerEvents = "none"
@@ -238,8 +239,8 @@ export class DashboardCollaborateurComponent implements OnInit {
     });
   
 
-    await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
-
+   // await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
+   await Promise.all(savePromises);
     await this.updateJours();
     
     this.messageLoading = 'Terminée';

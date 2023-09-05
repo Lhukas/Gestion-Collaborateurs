@@ -30,6 +30,8 @@ export class VueEnsembleComponent implements OnInit {
   listCollaborateurAgence : Collaborateur[] = []
   listCollaborateurConsulting : Collaborateur[] = []
 
+  listCollaborateurArchive : Collaborateur[] = []
+
   nbTicket : number = 0
 
   IDjoursDOM !: String;
@@ -53,13 +55,26 @@ export class VueEnsembleComponent implements OnInit {
 
     this.listCollaborateur = await this.cs.getAllCollaborateurs().toPromise()
     this.listCollaborateur.forEach(element => {
-      console.log(element.groupe)
+      
 
-      if(element.groupe=="AGENCE"){
-      this.listCollaborateurAgence.push(element)
-      }else{
-      this.listCollaborateurConsulting.push(element)
+
+      switch (element.groupe) {
+        case "AGENCE":
+          this.listCollaborateurAgence.push(element)
+          break;
+
+          case "CONSULTING":
+            this.listCollaborateurConsulting.push(element)
+          break;
+
+          case "ARCHIVE":
+            this.listCollaborateurArchive.push(element)
+          break;
+      
+        default:
+          break;
       }
+
     });
 
     this.refreshConge()

@@ -49,6 +49,15 @@
          <td class="TAC" [id]="'TR-'+item.trigramme "></td>
         </tr>
 
+        <div class="groupe" >ARCHIVES</div>
+        <tr class="weekdays" *ngFor="let item of listCollaborateurArchive">
+          <td class="TAC">{{item.trigramme}}</td>
+          
+            <td class="weekday" [attr.id]="getFormattedDateId(date, item.trigramme)" *ngFor="let date of dates">
+            </td>
+         <td class="TAC" [id]="'TR-'+item.trigramme "></td>
+        </tr>
+
     </table>
     
 <!--    

@@ -104,6 +104,7 @@ onAddCollaborateur() {
         console.log(response)
         this.getAllCollaborateurs()
         this.newCollaborateur  = new Collaborateur(null,'','','','','','',false,'','')
+        this.modification = false;
       },
       (error) => {
         console.log(error.message)
