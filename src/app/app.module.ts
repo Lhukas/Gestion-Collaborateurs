@@ -20,6 +20,7 @@ import { CalendarModule } from 'angular-calendar';
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { DashboardCollaborateurComponent } from './dashboard-collaborateur/dashboard-collaborateur.component';
+import { TestComponent } from './test/test.component';
 
 
 
@@ -35,6 +36,7 @@ import { DashboardCollaborateurComponent } from './dashboard-collaborateur/dashb
     PageConnexionComponent,
     DashboardAdminComponent,
     DashboardCollaborateurComponent,
+    TestComponent,
     
     
     

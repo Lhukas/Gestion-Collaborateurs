@@ -7,6 +7,7 @@ import { PageConnexionComponent } from "./page-connexion/page-connexion.componen
 import { AppComponent } from "./app.component";
 import { DashboardCollaborateurComponent } from "./dashboard-collaborateur/dashboard-collaborateur.component";
 import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.component";
+import { TestComponent } from "./test/test.component";
 
 
 const routes : Routes = [
@@ -18,6 +19,7 @@ const routes : Routes = [
     { path: 'Vue-ensemble', component : VueEnsembleComponent },
     { path: 'Dashboard-Collaborateur', component : DashboardCollaborateurComponent },
     { path: 'Dashboard-admin', component : DashboardAdminComponent },
+    { path: 'test', component : TestComponent },
     ];
 
 

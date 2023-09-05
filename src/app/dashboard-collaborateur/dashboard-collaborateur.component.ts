@@ -4,7 +4,6 @@ import { Collaborateur } from '../models/collaborateur-modele';
 import { Jours } from '../models/jours-modele';
 import { CollaborateursService } from '../services/collaborateurs.service';
 import { JoursServices } from '../services/jours.services';
-import { EmailService } from '../services/email.service';
 
 @Component({
   selector: 'app-dashboard-collaborateur',
@@ -39,7 +38,6 @@ export class DashboardCollaborateurComponent implements OnInit {
     private route: ActivatedRoute,
     private cs: CollaborateursService,
     private js: JoursServices,
-    private ms : EmailService
   ) {}
 
   ngOnInit(): void {
@@ -239,7 +237,7 @@ export class DashboardCollaborateurComponent implements OnInit {
     });
   
 
-   // await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
+  // await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
    await Promise.all(savePromises);
     await this.updateJours();
     
