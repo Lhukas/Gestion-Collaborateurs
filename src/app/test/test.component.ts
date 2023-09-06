@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EmailService } from '../services/email.services';
+import { Email } from '../models/email-modele';
 
 
 @Component({
@@ -8,15 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestComponent implements OnInit {
 
-  constructor(
 
+  constructor(
+    private es : EmailService,
   ) { }
 
-  async ngOnInit(): Promise<string> {
-
-
-
-    return "ok"
+   ngOnInit() {
   }
+
+
+
+
+  test() {
+    console.log(this.es.demandeConge(new Email("lhukassauvage@gmail.com","nelhomme","lhukas")).toPromise())
+    }
 
 }

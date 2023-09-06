@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gestioncollaborateurs.model.email;
+
+import com.gestioncollaborateurs.model.Courriel;
 import com.gestioncollaborateurs.service.CollaborateursService;
 import com.gestioncollaborateurs.service.emailService;
 
@@ -27,11 +28,10 @@ public class emailController {
 	
 	
 	
-	 @PostMapping("/send-email")
-	    public String sendEmail(@RequestBody email emailRequest) throws MessagingException, IOException {
+	 @PostMapping("/demandeConge")
+	    public int sendEmail(@RequestBody Courriel email) throws MessagingException, IOException {
 	        
-	        es.sendHtmlEmail();
-	        return "E-mail envoyé avec succès!";
+	        return es.demandeConge(email);
 	    }
 	
 	

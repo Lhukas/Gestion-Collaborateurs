@@ -4,6 +4,8 @@ import { Collaborateur } from '../models/collaborateur-modele';
 import { Jours } from '../models/jours-modele';
 import { CollaborateursService } from '../services/collaborateurs.service';
 import { JoursServices } from '../services/jours.services';
+import { Email } from '../models/email-modele';
+import { EmailService } from '../services/email.services';
 
 @Component({
   selector: 'app-dashboard-collaborateur',
@@ -38,6 +40,7 @@ export class DashboardCollaborateurComponent implements OnInit {
     private route: ActivatedRoute,
     private cs: CollaborateursService,
     private js: JoursServices,
+    private es : EmailService
   ) {}
 
   ngOnInit(): void {
@@ -239,7 +242,8 @@ export class DashboardCollaborateurComponent implements OnInit {
 
   // await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
    await Promise.all(savePromises);
-    await this.updateJours();
+   await this.es.demandeConge(new Email("lhukassauvage@gmail.com",this.collaborateur.nom,this.collaborateur.prenom)).toPromise()
+  await this.updateJours();
     
     this.messageLoading = 'Terminée';
     this.datetraitement = [];
