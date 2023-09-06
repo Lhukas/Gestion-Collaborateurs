@@ -5,6 +5,7 @@ export class Email {
         public destinataire: string,
         public nom: string,
         public prenom: string,
+        public contenu : string,
         
       ) 
     {}

@@ -28,10 +28,26 @@ public class emailController {
 	
 	
 	
-	 @PostMapping("/demandeConge")
-	    public int sendEmail(@RequestBody Courriel email) throws MessagingException, IOException {
+	 @PostMapping("/Conge/demande")
+	    public int demandeConge(@RequestBody Courriel email) throws MessagingException, IOException {
 	        
-	        return es.demandeConge(email);
+		    return es.demandeConge(email);
+	        
+	    }
+	 
+	 
+	 
+	 @PostMapping("/Conge/valide")
+	    public int ValidationConge(@RequestBody Courriel email) throws MessagingException, IOException {
+	        return es.ValidationConge(email);
+	    }
+	 
+	 
+
+	 @PostMapping("/Conge/refus")
+	    public int refusConge(@RequestBody Courriel email) throws MessagingException, IOException {
+	        
+	        return es.RefusConge(email);
 	    }
 	
 	

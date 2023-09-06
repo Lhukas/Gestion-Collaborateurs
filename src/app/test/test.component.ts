@@ -10,19 +10,29 @@ import { Email } from '../models/email-modele';
 })
 export class TestComponent implements OnInit {
 
-
+  jourAttente: number[] = [12022023, 12022023, 13022023];
   constructor(
     private es : EmailService,
   ) { }
 
    ngOnInit() {
+
+
   }
 
 
 
 
-  test() {
-    console.log(this.es.demandeConge(new Email("lhukassauvage@gmail.com","nelhomme","lhukas")).toPromise())
+  async test() {
+
+    this.jourAttente.sort((a, b) => a - b);
+
+    let joursJSON = this.jourAttente.map(jour => ({ jour: jour.toString() }));
+    let joursJSONString = JSON.stringify(joursJSON);
+
+    console.log(joursJSONString)
+
+    console.log( await this.es.validationConge(new Email("lhukassauvage@gmail.com","test", "test",joursJSONString) ).toPromise())
     }
 
 }

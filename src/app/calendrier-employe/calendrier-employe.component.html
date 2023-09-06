@@ -159,11 +159,10 @@
         <td>{{ jourItem.mois}}</td>
         <td>{{ jourItem.annee}}</td>
         <td>{{ jourItem.type}}</td>
-        <td>{{ jourItem.valide}} a faire en francais</td>
+        <td>{{ jourItem.valide ? "Validé" : "En attente de validation" }} a faire en francais</td>
         <td >
           <div *ngIf="jourItem.valide==false; else elseBlock" class="action-btn">
-            <button (click)="accepterJours(jourItem.id_jours!)" class="accepte">Accepter</button>
-            <button (click)="refuseJours(jourItem.idFormatLong!)" class="refuse">Refuser</button>
+            <button (click)="selection(jourItem.id_jours!)" class="selectionné" [id]="jourItem.id_jours!">Séléction</button>
           </div>
 
           <ng-template #elseBlock>
@@ -176,7 +175,10 @@
     </tbody>
 
   </table>
-
+  <div  class="action-btn">
+    <button (click)="accepterJours()" class="accepte">Accepter</button>
+    <button (click)="refuseJours('10')" class="refuse">Refuser</button>
+  </div>
   
 
 <div class="back_popup" *ngIf="choixTypeJour">
@@ -254,20 +256,7 @@
     <div id="popup" class="popup" >
       <span class="close-btn" (click)="refus = false">&#10006;</span>
       <div class="popup-header">
-        <h2>Jour sélectionné</h2>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th> 
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{jourRefus}}</td>
-          </tr>
-        </tbody>
-        </table>
+     
         <h2>Motif refus</h2>
        <textarea name="" id="" cols="30" rows="10"></textarea>
   

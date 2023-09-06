@@ -9,9 +9,15 @@ public class Courriel {
 	private String destinataire;
     private String nom;
     private String prenom;
+    private String contenu;
     
     
-    
+	public String getContenu() {
+		return contenu;
+	}
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
+	}
 	public String getDestinataire() {
 		return destinataire;
 	}

@@ -192,7 +192,7 @@ tbody td {
 
 /* Style pour les boutons de suppression */
 tbody button {
-  background-color: #f44336;
+  
   color: #fff;
   border: none;
   padding: 6px 12px;
@@ -201,9 +201,7 @@ tbody button {
   transition: background-color 0.2s ease;
 }
 
-tbody button:hover {
-  background-color: #d32f2f;
-}
+
 
 
 
@@ -337,4 +335,9 @@ textarea{
   border: none;
   border-radius: 5px;
   padding: 20px;
+}
+
+
+.selectionné{
+  background-color: #007bff;
 }

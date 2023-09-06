@@ -11,7 +11,17 @@ import { Email } from "../models/email-modele";
     constructor(private httpClient : HttpClient) { }
 
     demandeConge(email : Email){
-        return this.httpClient.post<Number>(environment.API_URL+"/demandeConge", email);
+        return this.httpClient.post<Number>(environment.API_URL+"/Conge/demande", email);
     }
+
+
+    validationConge(email : Email){
+      return this.httpClient.post<Number>(environment.API_URL+"/Conge/valide", email);
+  }
+
+
+  refusConge(email : Email){
+    return this.httpClient.post<Number>(environment.API_URL+"/Conge/refus", email);
+}
     
   }

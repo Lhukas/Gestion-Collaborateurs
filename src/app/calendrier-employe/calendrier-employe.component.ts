@@ -6,6 +6,8 @@ import { Collaborateur } from '../models/collaborateur-modele';
 import { Jours } from '../models/jours-modele';
 import { JoursServices } from '../services/jours.services';
 import { async } from 'rxjs/internal/scheduler/async';
+import { EmailService } from '../services/email.services';
+import { Email } from '../models/email-modele';
 
 @Component({
   selector: 'app-calendrier-employe',
@@ -13,6 +15,7 @@ import { async } from 'rxjs/internal/scheduler/async';
   styleUrls: ['./calendrier-employe.component.scss'],
 })
 export class CalendrierEmployeComponent implements OnInit {
+
 
   currentMonth!: string;
   weekdays!: string[];
@@ -26,6 +29,9 @@ refus : boolean = false
   jourRefus !: string
 
   collaborateur!: Collaborateur;
+  admin !: Collaborateur;
+
+  jourAttente : number[] = [];
 
   datetraitement: string[] = [];
   jour!: Jours[];
@@ -41,7 +47,8 @@ refus : boolean = false
   constructor(
     private route: ActivatedRoute,
     private cs: CollaborateursService,
-    private js: JoursServices
+    private js: JoursServices,
+    private es : EmailService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +65,13 @@ refus : boolean = false
         this.prenom = collaborateur.prenom;
         this.nom = collaborateur.nom;
       });
+
+      this.cs
+      .getCollaborateur(parseInt(sessionStorage.getItem("ID")!))
+      .subscribe((collaborateur: Collaborateur) => {
+        this.admin = collaborateur;
+      });
+
   }
 
   ngAfterViewInit(): void {
@@ -278,20 +292,64 @@ refus : boolean = false
 
     
 
-  async accepterJours(id: number) {
+  async accepterJours() {
+
 
     this.loadingScreen = true;
-    this.messageLoading = 'En cours';
+    this.messageLoading = 'En cours de sauvagarde';
 
-    const JourTrouve : Jours = await this.js.getJoursById(id).toPromise()
-    console.log(JourTrouve.mois)
-    JourTrouve.valide = true
-    await this.js.saveJours(JourTrouve).toPromise();
-    await this.updateJours();
+    const savePromises = this.jourAttente.map(async (element) => {
+
+      const JourTrouve : Jours = await this.js.getJoursById(element).toPromise()
+       JourTrouve.valide = true
+      
+      
+      return this.js.saveJours(JourTrouve).toPromise();
+    });
+  
+    await Promise.all(savePromises);
+
+    interface Jour {
+      jour: string;
+    }
+
+
+    this.jourAttente.sort((a, b) => a - b);
+
+    let joursJSON : object = this.jourAttente.map(jour => ({ jour: jour.toString() }));
+
+  
+  await this.es.validationConge(new Email(this.collaborateur.mail,this.admin.nom, this.admin.prenom,"") )
+  await this.updateJours();
 
 
     this.loadingScreen = false;
     }
+
+
+    selection(idJours: number) {
+    if (this.jourAttente.length == 0) {
+      document.getElementById(idJours.toString())!.style.backgroundColor = 'green';
+      document.getElementById(idJours.toString())!.innerHTML = 'Sélectionné';
+      this.jourAttente.push(idJours);
+     
+    } else {
+      const index = this.jourAttente.indexOf(idJours);
+      if (index !== -1) {
+        // L'élément est présent dans le tableau, on le supprime
+        this.jourAttente.splice(index, 1);
+        document.getElementById(idJours.toString())!.style.backgroundColor = '#007bff';
+        document.getElementById(idJours.toString())!.innerHTML = 'Sélection';
+      } else {
+        // L'élément n'est pas présent dans le tableau, on l'ajoute
+        this.jourAttente.push(idJours);
+        document.getElementById(idJours.toString())!.style.backgroundColor = 'green';
+        document.getElementById(idJours.toString())!.innerHTML = 'Sélectionné';
+        this.isSelected(idJours.toString());
+      }
+    }
+    console.log(this.jourAttente)
+      }
   
 }
 
