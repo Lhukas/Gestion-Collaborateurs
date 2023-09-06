@@ -226,7 +226,7 @@ export class DashboardCollaborateurComponent implements OnInit {
         null,
         this.collaborateur.collaborateur_id,
         element.slice(0, 2),
-        element.slice(3, 4),
+        element.slice(2, 4),
         element.slice(4, 8),
         this.typeCongeSelectionne,
         this.eligibleTr,

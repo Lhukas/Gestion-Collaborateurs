@@ -43,6 +43,7 @@ refus : boolean = false
   loadingScreen!: boolean;
 
   nbTicket: number = 0;
+  motifRefus!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -238,7 +239,7 @@ refus : boolean = false
         null,
         this.collaborateur.collaborateur_id,
         element.slice(0, 2),
-        element.slice(3, 4),
+        element.slice(2, 4),
         element.slice(4, 8),
         this.typeCongeSelectionne,
         this.eligibleTr,
@@ -246,7 +247,7 @@ refus : boolean = false
         true
       );
       
-      
+      console.log(element.slice(2, 4))
       
       return this.js.saveJours(jourToSave).toPromise();
     });
@@ -276,14 +277,24 @@ refus : boolean = false
     async deleteJours() {
 
       this.loadingScreen = true;
-      this.messageLoading = 'En cours';
-      document.getElementById(this.jourRefus)!.className = ""
-      
-      await this.js.deleteJoursByID(this.jourRefus, this.employe_id).toPromise()
+      this.messageLoading = 'En cours de sauvagarde';
+  
+      const savePromises = this.jourAttente.map(async (element) => {
+  
+        return await this.js.deleteJoursByID(this.jourRefus, this.employe_id).toPromise()
+      });
+    
+      await Promise.all(savePromises);
+  
+    
+      await this.es.refusConge(new Email(this.collaborateur.mail,this.admin.nom, this.admin.prenom,this.motifRefus) ).toPromise()
+      console.log(this.collaborateur.mail)
+  
       await this.updateJours();
   
-
+      this.jourAttente = []
       this.loadingScreen = false;
+
       this.refus = false
   
   
@@ -309,20 +320,13 @@ refus : boolean = false
   
     await Promise.all(savePromises);
 
-    interface Jour {
-      jour: string;
-    }
-
-
-    this.jourAttente.sort((a, b) => a - b);
-
-    let joursJSON : object = this.jourAttente.map(jour => ({ jour: jour.toString() }));
-
   
-  await this.es.validationConge(new Email(this.collaborateur.mail,this.admin.nom, this.admin.prenom,"") )
-  await this.updateJours();
+    await this.es.validationConge(new Email(this.collaborateur.mail,this.admin.nom, this.admin.prenom,"") ).toPromise()
+    console.log(this.collaborateur.mail)
 
+    await this.updateJours();
 
+    this.jourAttente = []
     this.loadingScreen = false;
     }
 
