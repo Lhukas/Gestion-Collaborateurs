@@ -42,7 +42,7 @@ public interface JoursRepository extends CrudRepository <Jours, Long>{
 
 
 	@Modifying
-	@Query("DELETE FROM Jours j WHERE j.id_collaborateurs = :IDcollaborateur AND j.idFormatLong = :IDJours")
+	@Query("DELETE FROM Jours j WHERE j.id_collaborateurs = :IDcollaborateur AND j.id_jour = :IDJours")
 	@Transactional
 	void deletejoursByIdFormat(@Param("IDcollaborateur") Long IDcollaborateur, @Param("IDJours") String IDJours);
 

@@ -280,22 +280,23 @@ refus : boolean = false
       this.messageLoading = 'En cours de sauvagarde';
   
       const savePromises = this.jourAttente.map(async (element) => {
-  
-        return await this.js.deleteJoursByID(this.jourRefus, this.employe_id).toPromise()
+      
+        return this.js.deleteJoursByID(element.toString(), this.employe_id).toPromise()
+        
       });
     
       await Promise.all(savePromises);
   
     
       await this.es.refusConge(new Email(this.collaborateur.mail,this.admin.nom, this.admin.prenom,this.motifRefus) ).toPromise()
-      console.log(this.collaborateur.mail)
+     
   
       await this.updateJours();
-  
+      this.refus = false
       this.jourAttente = []
+
       this.loadingScreen = false;
 
-      this.refus = false
   
   
       }
@@ -322,7 +323,7 @@ refus : boolean = false
 
   
     await this.es.validationConge(new Email(this.collaborateur.mail,this.admin.nom, this.admin.prenom,"") ).toPromise()
-    console.log(this.collaborateur.mail)
+   
 
     await this.updateJours();
 
