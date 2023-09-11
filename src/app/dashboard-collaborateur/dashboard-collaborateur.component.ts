@@ -20,6 +20,7 @@ export class DashboardCollaborateurComponent implements OnInit {
   prenom!: string;
   nom!: string;
   employe_id!: number;
+  emailToSend !: string;
 
   current_month_string!: string;
 
@@ -242,7 +243,20 @@ export class DashboardCollaborateurComponent implements OnInit {
 
   // await this.ms.EmailDemande(this.collaborateur.collaborateur_id!,this.collaborateur.mail)
    await Promise.all(savePromises);
-   await this.es.demandeConge(new Email("lhukassauvage@gmail.com",this.collaborateur.nom,this.collaborateur.prenom,"")).toPromise()
+   
+   switch (this.collaborateur.groupe) {
+    case "AGENCE":
+      this.emailToSend = "lnelhomme@dlinfo.fr"
+      break;
+
+      case "CONSULTING":
+        this.emailToSend = "lnelhomme@dlinfo.fr"
+        break;
+   
+    default:
+      break;
+   }
+   await this.es.demandeConge(new Email(this.emailToSend,this.collaborateur.nom,this.collaborateur.prenom,"")).toPromise()
   await this.updateJours();
     
     this.messageLoading = 'Terminée';

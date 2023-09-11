@@ -92,14 +92,14 @@
 
     <div class="inline-b">
       <div class="code-couleur-details">
-        <div><p class="color-code DEMIJM"></p></div>
+        <div><p class="color-code DEMIJ-M"></p></div>
         <div class="color-signification"><p>Demi-journée MATIN</p></div>
       </div>
     </div>
 
     <div class="inline-b">
       <div class="code-couleur-details">
-        <div><p class="color-code DEMIJS"></p></div>
+        <div><p class="color-code DEMIJ-S"></p></div>
         <div class="color-signification"><p>Demi-journée SOIR</p></div>
       </div>
     </div>
@@ -159,7 +159,7 @@
         <td>{{ jourItem.mois}}</td>
         <td>{{ jourItem.annee}}</td>
         <td>{{ jourItem.type}}</td>
-        <td>{{ jourItem.valide ? "Validé" : "En attente de validation" }} a faire en francais</td>
+        <td>{{ jourItem.valide ? "Validé" : "En attente de validation" }}</td>
         <td >
           <div *ngIf="jourItem.valide==false; else elseBlock" class="action-btn">
             <button (click)="selection(jourItem.id_jours!)" class="selectionné" [id]="jourItem.id_jours!">Séléction</button>
@@ -206,6 +206,14 @@
           <span class="custom-radio"></span>
           <span>Congé payé</span>
         </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="CR" [(ngModel)]="typeCongeSelectionne">
+          <span class="custom-radio"></span>
+          <span>Congé de révision</span>
+        </label>
+
+
         <label class="radio-label">
           <input type="radio" class="radio-input" name="typeConge" value="PRESENT" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
@@ -215,7 +223,7 @@
         <label class="radio-label">
           <input type="radio" class="radio-input" name="typeConge" value="ECOLE" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
-          <span>ECOLE</span>
+          <span>Ecole</span>
         </label>
 
 
@@ -224,6 +232,31 @@
           <span class="custom-radio"></span>
           <span>Absent</span>
         </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="ABS-REM" [(ngModel)]="typeCongeSelectionne">
+          <span class="custom-radio"></span>
+          <span>Absence rémunérée</span>
+        </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="ABS-NR" [(ngModel)]="typeCongeSelectionne">
+          <span class="custom-radio"></span>
+          <span>Absence non rémunérée</span>
+        </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="ABS-M" [(ngModel)]="typeCongeSelectionne">
+          <span class="custom-radio"></span>
+          <span>Absence maladie</span>
+        </label>
+
+        <label class="radio-label">
+          <input type="radio" class="radio-input" name="typeConge" value="ACC-T" [(ngModel)]="typeCongeSelectionne">
+          <span class="custom-radio"></span>
+          <span>Accident de travail</span>
+        </label>
+
         <label class="radio-label">
           <input type="radio" class="radio-input" name="typeConge" value="CSS" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
@@ -231,14 +264,14 @@
         </label>
 
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="DEMIJM" [(ngModel)]="typeCongeSelectionne">
+          <input type="radio" class="radio-input" name="typeConge" value="DEMIJ-M" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Demi journée MATIN</span>
         </label>
 
 
         <label class="radio-label">
-          <input type="radio" class="radio-input" name="typeConge" value="DEMIJS" [(ngModel)]="typeCongeSelectionne">
+          <input type="radio" class="radio-input" name="typeConge" value="DEMIJ-S" [(ngModel)]="typeCongeSelectionne">
           <span class="custom-radio"></span>
           <span>Demi journée SOIR</span>
         </label>

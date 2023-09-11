@@ -326,6 +326,24 @@ tbody button {
 
   .accepte{
     background-color: green !important;
+    color: white;
+    /* padding: 20px 30px; */
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;
+  }
+
+  .refuse{
+    background-color: red !important;
+    color: white;
+    /* padding: 20px 30px; */
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;
   }
 textarea{
   display: block;
