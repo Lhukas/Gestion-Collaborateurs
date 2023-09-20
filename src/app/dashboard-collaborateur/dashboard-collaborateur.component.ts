@@ -246,11 +246,11 @@ export class DashboardCollaborateurComponent implements OnInit {
    
    switch (this.collaborateur.groupe) {
     case "AGENCE":
-      this.emailToSend = "lnelhomme@dlinfo.fr"
+      this.emailToSend = "lhukasboss@gmail.com"
       break;
 
       case "CONSULTING":
-        this.emailToSend = "lnelhomme@dlinfo.fr"
+        this.emailToSend = "lhukasboss@gmail.com"
         break;
    
     default:
